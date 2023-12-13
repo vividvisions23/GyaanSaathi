@@ -1,0 +1,60 @@
+.home {
+  display: flex;
+
+  .AdminHomeContainer {
+    width: 100%;
+
+    .welcome {
+      width: 90%;
+      padding: 0 0 20px 0;
+      border-radius: 5px;
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      margin: auto;
+      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+
+      .text {
+        width: 80%;
+        text-align: center;
+
+        h1 {
+          margin-bottom: 10px;
+        }
+      }
+
+      img {
+        width: 50%;
+        height: 150px;
+        width: 150px;
+      }
+    }
+
+    .widgets {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+      overflow-x: scroll;
+      margin: 30px 30px;
+    }
+
+    .charts {
+      padding: 5px 20px;
+    }
+
+    .AdminListContainer {
+      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      padding: 20px;
+      margin: 20px;
+
+      .listTitle {
+        font-weight: 500;
+        color: gray;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
