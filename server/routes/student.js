@@ -26,6 +26,4 @@ router.put('/ClearAllStudentsSubAtten/:id', clearAllStudentsAttendanceBySubject)
 router.put('/ClearAllStudentsAtten/:id', clearAllStudentsAttendance);
 router.put('/RemoveStudentSubAtten/:id', removeStudentAttendanceBySubject);
 router.put('/RemoveStudentAtten/:id', removeStudentAttendance);
-
-
 export default router;

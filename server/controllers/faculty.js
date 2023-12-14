@@ -81,7 +81,7 @@ export const deleteFaculty = async (req, res, next) => {
   
   export const getFaculty = async (req, res, next) => {
     try {
-      const faculty = await Faculty.findById(req.params.id).populate('subject');
+      const faculty = await Faculty.findById(req.params.id).populate('subjectsTaught');
       res.status(200).json(faculty);
     } catch (err) {
       next(err);
@@ -90,7 +90,7 @@ export const deleteFaculty = async (req, res, next) => {
   
   export const getFacultys = async (req, res, next) => {
     try {
-      const facultys = await Faculty.find().populate('subject');
+      const facultys = await Faculty.find().populate('subjectsTaught');
       
       res.status(200).json(facultys);
     } catch (err) {
