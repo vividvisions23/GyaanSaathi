@@ -3,9 +3,10 @@ import "./home.scss";
 // calling all the components on the page
 import Navbar from "../../components/navbar/Navbar";
 import AdminNavbar from "../../components/adminNavbar/AdminNavbar"
-import Widget from "../../components/Courses/Courses";
 import Featured from "../../components/featured/Featured";
 import Chart from "../../components/chart/Chart";
+import AdminWidgets from "../../components/adminWidgets/AdminWidgets";
+import AdminButton from "../../components/adminButtons/AdminButton"
 import Table from "../../components/table/Table";
 
 // type specifies the admin side or user side 
@@ -20,29 +21,28 @@ const Home = ({ type }) => {
         <div className="welcome">
           <img src="https://drive.google.com/uc?id=1ReJV_kcqYaIuxt6ot-LXFYHcuJXtwJxx" alt="" />
           <div className="text">
-            <h1>Welcome to ERP Portal</h1>
-            <p>Providing seamless navigation for your college life via our portal</p>
+            <h1>Welcome to Gyaan Saathi</h1>
+            <p>Providing seamless navigation for your learning via our portal</p>
           </div>
         </div>
 
-        <div className="buttons">
-          
+        <div className="widgets">
+          <AdminWidgets />
         </div>
 
-        {/* widgets
-        <div className="widgets">
-          <Widget type="ml" />
-          <Widget type="oops" />
-          <Widget type="compilerdesign" />
-          <Widget type="computernetwork" />
-          <Widget type="operatingsystem" />
-          <Widget type="systemdesign" />
-        </div> */}
 
-        {/* Latest Updates */}
-        <div className="AdminListContainer">
-          <div className="listTitle">Latest Notifications</div>
-          <Table type="updates" />
+        <div className="mainContainer">
+
+          {/* Latest Updates */}
+          <div className="AdminListContainer">
+            <div className="listTitle">Latest Notifications</div>
+            <Table type="updates" />
+          </div>
+
+          {/* Shortcut Buttons */}
+          <div className="AdminButtons">
+            <AdminButton />
+          </div>
         </div>
         
 

@@ -1,6 +1,7 @@
 
 // CSS
 import "./style/dark.scss";
+import "./style/base.scss"
 
 
 // React Stuff
