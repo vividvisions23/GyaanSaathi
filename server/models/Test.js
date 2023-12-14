@@ -16,7 +16,16 @@ const TestSchema = new mongoose.Schema(
         }, 
         author: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Faculty'
+            ref: 'Faculty',
+            required: true
+        },
+        class: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Class',
+            required: true
+        },
+        pace: {
+            type: String
         }
     }
 );

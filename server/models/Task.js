@@ -14,6 +14,22 @@ const TaskSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    class: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Class',
+      required: true
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Faculty',
+      required: true
+    },
+    pace: {
+      type: String
+    },
+    category: {
+      type: String
+    }
   },
   { timestamps: true }
 );

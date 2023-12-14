@@ -33,14 +33,6 @@ const FacultySchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    department: {
-      type: String,
-      required: true
-    },
-    designation: {
-      type: String,
-      required: true
-    },
     facultyPhone: {
       type: String,
       required: true
@@ -69,13 +61,12 @@ const FacultySchema = new mongoose.Schema(
       type: Boolean,
       default: true
     },
-    subject: { 
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Course'
-    },
-    classCode: {
-      type: String
-    }
+    subjectsTaught: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course',
+      },
+    ],
   },
   { timestamps: true }
 );

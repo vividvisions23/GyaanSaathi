@@ -10,32 +10,20 @@ const CourseSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        credits: {
-            type: Number,
+        class: {
+            type: mongoose.Schema.Types.ObjectId,
             required: true
-        },
-        department: {
-            type: String
         }, 
-        semester: {
-            type: String
-        },
         syllabusPicture: {
             type: String,
         },
         cloud_id: {
             type: String,
         },
-        material: {
-            type: [String]
-        },
         teacher: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Faculty'
         },
-        classCode: {
-            type: String
-        }
     }
 );
 

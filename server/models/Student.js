@@ -31,16 +31,9 @@ const StudentSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    year: {
-      type: String,
-      required: true
-    },
-    semester: {
-      type: String,
-      required: true
-    },
-    department: {
-      type: String,
+    class: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Class',
       required: true
     },
     studentPhone: {
@@ -50,6 +43,12 @@ const StudentSchema = new mongoose.Schema(
     studentAddress: {
       type: String,
       required: true
+    },
+    group: {
+      type: String,
+    },
+    pace: {
+      type: String
     },
     dob: {
       type: String,
@@ -70,13 +69,6 @@ const StudentSchema = new mongoose.Schema(
     isFaculty: {
       type: Boolean,
       default: false
-    },
-    isCR: {
-      type: Boolean,
-      default: false
-    },
-    classCode: {
-      type: String
     },
     courses: [
       {

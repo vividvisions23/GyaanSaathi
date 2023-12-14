@@ -12,7 +12,17 @@ const UpdateSchema = new mongoose.Schema({
     status: {
         type: String,
         default: "New"
+    },
+    updateType: {
+        type: String,
+        required: true,
+        default: "general"
+    },
+    class: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Class'
     }
+
 }, { timestamps: true })
 
 export default mongoose.model("Update", UpdateSchema);
