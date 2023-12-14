@@ -18,6 +18,7 @@ import courseRoute from "./routes/course.js";
 import timetableRoute from "./routes/timetable.js"
 import testRoute from "./routes/test.js"
 import classRoute from "./routes/class.js"
+import countAllRoute from "./routes/countDocuments.js"
 
 
 //config and middlewares
@@ -77,6 +78,7 @@ app.use("/api/courses", courseRoute);
 app.use("/api/timetables", timetableRoute);
 app.use("/api/tests", testRoute);
 app.use("/api/classes", classRoute);
+app.use("/api", countAllRoute)
 
 
 //listen on port

@@ -28,23 +28,13 @@ export const studentColumns = [
         width: 100,
     },
     {
+        field: "classname",
+        headerName: "Class",
+        width: 100,
+    },
+    {
         field: "gender",
         headerName: "Gender",
-        width: 100,
-    },
-    {
-        field: "department",
-        headerName: "Department",
-        width: 100,
-    },
-    {
-        field: "semester",
-        headerName: "Semester",
-        width: 100
-    },
-    {
-        field: "year",
-        headerName: "Year",
         width: 100,
     },
     {
@@ -61,5 +51,5 @@ export const studentColumns = [
         field: "dob",
         headerName: "Birth Date",
         width: 100,
-    }
+    },
 ];

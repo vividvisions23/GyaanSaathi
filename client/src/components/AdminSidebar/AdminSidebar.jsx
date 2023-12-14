@@ -10,13 +10,9 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import EventIcon from '@mui/icons-material/Event';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
 import CloseIcon from '@mui/icons-material/Close';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import GroupIcon from '@mui/icons-material/Group';
-import BookIcon from '@mui/icons-material/Book';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import SchoolIcon from '@mui/icons-material/School';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 
 import { Link } from 'react-router-dom';
@@ -104,41 +100,11 @@ const AdminSidebar = ({ setOpen }) => {
                         </li>
                     </Link>
 
-                    {/* Options under Create */}
-
-                    <p className="title">Create</p>
-                    <Link to="/admin/students/new" style={{ textDecoration: "none" }}>
+                    {/* Takes you to list of all classes created by admin */}
+                    <Link to="/admin/classes" style={{ textDecoration: "none" }}>
                         <li>
-                            <GroupAddIcon className="icon" />
-                            <span>Student</span>
-                        </li>
-                    </Link>
-
-                    <Link to="/admin/faculties/new" style={{ textDecoration: "none" }}>
-                        <li>
-                            <PersonAddIcon className="icon" />
-                            <span>Faculty</span>
-                        </li>
-                    </Link>
-
-                    <Link to="/admin/updates/new" style={{ textDecoration: "none" }}>
-                        <li>
-                            <NotificationAddIcon className="icon" />
-                            <span>Updates</span>
-                        </li>
-                    </Link>
-
-                    <Link to="/admin/courses/new" style={{ textDecoration: "none" }}>
-                        <li>
-                            <BookIcon className="icon" />
-                            <span>Courses</span>
-                        </li>
-                    </Link>
-
-                    <Link to="/admin/timetables/new" style={{ textDecoration: "none" }}>
-                        <li>
-                            <CalendarMonthIcon className="icon" />
-                            <span>Timetable</span>
+                            <SchoolIcon className="icon" />
+                            <span>Classes</span>
                         </li>
                     </Link>
 

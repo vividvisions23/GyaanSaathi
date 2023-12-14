@@ -327,6 +327,44 @@ function App() {
           }
         />
 
+        {/* routes for classes */}
+
+        {/* list of classes */}
+
+        <Route 
+          path="/admin/classes" element={
+            <RequireAdmin>
+              <RequireAuth>
+                {/* <List column={classColumns} name="Class" type="Admin"/> */}
+              </RequireAuth>
+            </RequireAdmin>
+          }
+        />
+
+        {/*  create new classes */}
+        
+        <Route 
+          path="/admin/classes/new" element={
+            <RequireAdmin>
+              <RequireAuth>
+                {/* <NewCourse inputs={classInputs} title="Add New Class"/> */}
+              </RequireAuth>
+            </RequireAdmin>
+          }
+        />
+
+        {/* edit classes */}
+
+        <Route 
+          path="/admin/classes/:classId/edit" element={
+            <RequireAdmin>
+              <RequireAuth>
+                {/* <EditCourse title="Edit Classes" type="Admin"/> */}
+              </RequireAuth>
+            </RequireAdmin>
+          }
+        />
+
 
         {/* routes for events */}
 

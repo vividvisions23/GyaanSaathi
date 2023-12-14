@@ -82,26 +82,14 @@ const Single = ({ type }) => {
                 
                 {/* Department */}
                 <div className="detailItem">
-                  <span className="itemKey">Department:</span>
-                  <span className="itemValue">{data.department}</span>
-                </div>
-
-                {/* Year */}
-                <div className="detailItem">
-                  <span className="itemKey">Year:</span>
-                  <span className="itemValue">{data.year}</span>
+                  <span className="itemKey">Class:</span>
+                  <span className="itemValue">{data.classname}</span>
                 </div>
 
                 {/* Gender */}
                 <div className="detailItem">
                   <span className="itemKey">Gender:</span>
                   <span className="itemValue">{data.gender}</span>
-                </div>
-
-                {/* Section */}
-                <div className="detailItem">
-                  <span className="itemKey">Section:</span>
-                  <span className="itemValue">{data.section}</span>
                 </div>
 
                 {/* Date of Birth */}

@@ -4,8 +4,12 @@ import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import SchoolIcon from '@mui/icons-material/School';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import PeopleIcon from '@mui/icons-material/People';
+import useFetch from '../../hooks/useFetch';
 
 const AdminWidgets = () => {
+
+    const {data} = useFetch('/getAllCount')
+
   return (
     <div className="AdminWidgets">
         <div className='widget' style={{"backgroundColor":"var(--light-blue)"}}>
@@ -14,7 +18,7 @@ const AdminWidgets = () => {
             </div>
             <div className="rightContainer">
                 <h4>Students</h4>
-                <h3>2000</h3>
+                <h3>{data.student}</h3>
             </div>
         </div>
         <div className='widget' style={{"backgroundColor":"var(--light-pink)"}}>
@@ -23,7 +27,7 @@ const AdminWidgets = () => {
             </div>
             <div className="rightContainer">
                 <h4>Teachers</h4>
-                <h3>250</h3>
+                <h3>{data.teacher}</h3>
             </div>
         </div>
         <div className='widget' style={{"backgroundColor":"var(--light-yellow)"}}>
@@ -32,7 +36,7 @@ const AdminWidgets = () => {
             </div>
             <div className="rightContainer">
                 <h4>Subjects</h4>
-                <h3>53</h3>
+                <h3>{data.subject}</h3>
             </div>
         </div>
         <div className='widget' style={{"backgroundColor":"var(--light-green)"}}>
@@ -41,7 +45,7 @@ const AdminWidgets = () => {
             </div>
             <div className="rightContainer">
                 <h4>Classes</h4>
-                <h3>12</h3>
+                <h3>{data.class}</h3>
             </div>
         </div>
     </div>

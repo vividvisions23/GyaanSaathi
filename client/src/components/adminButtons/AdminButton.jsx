@@ -4,6 +4,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import BookIcon from '@mui/icons-material/Book';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
+import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate';
 import { Link } from 'react-router-dom';
 
 import "./adminButton.scss"
@@ -43,6 +44,11 @@ const Button = () => {
             <p>Updates</p>
           </div>
         </Link>
+        
+        {/* <div className="createButton">
+          <ControlPointDuplicateIcon className='icon' style={{color:"var(--blue)"}}/>
+          <p>Classes</p>
+        </div> */}
       </div>
     </div>
   )

@@ -4,10 +4,6 @@ import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
-function generateClassCode(semester, department) {
-  const index = departments.findIndex(d => d.name === department)
-  return `${departments[index].code}-${semester}`;
-}
 
 export const registerStudent = async (req, res, next) => {
   try {
@@ -16,9 +12,6 @@ export const registerStudent = async (req, res, next) => {
     if (em)
       return res.status(409).send({ message: "User with given email already exists" })
 
-    const semester = req.body.semester
-    const department = req.body.department
-    const code = generateClassCode(semester, department);
 
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
@@ -26,7 +19,6 @@ export const registerStudent = async (req, res, next) => {
     const newStudent = new Student({
       ...req.body,
       password: hash,
-      classCode: code
     });
 
     await newStudent.save();
@@ -70,13 +62,9 @@ export const loginStudent = async (req, res, next) => {
 export const updateStudent = async (req, res, next) => {
   try {
 
-    const semester = req.body.semester
-    const department = req.body.department
-    const code = generateClassCode(semester, department);
-
     const updatedStudent = await Student.findByIdAndUpdate(
       req.params.id,
-      { $set: {...req.body, classCode: code} },
+      { $set: req.body },
       { new: true }
     );
     res.status(200).json(updatedStudent);
@@ -96,17 +84,29 @@ export const deleteStudent = async (req, res, next) => {
   
   export const getStudent = async (req, res, next) => {
     try {
-      const student = await Student.findById(req.params.id);
-      res.status(200).json(student);
-    } catch (err) {
+      const student = await Student.findById(req.params.id).populate('class', 'name');
+      // Check if the student and student.class are present
+    if (student && student.class) {
+      // Transform the data before sending it in the response
+      const { class: { name, ...classInfo }, ...rest } = student.toObject();
+      const transformedStudent = { ...rest, classname: name, classInfo };
+
+      res.status(200).json(transformedStudent);
+    }
+   } catch (err) {
       next(err);
     }
   };
   
   export const getStudents = async (req, res, next) => {
     try {
-      const students = await Student.find();
-      res.status(200).json(students);
+      const students = await Student.find().populate('class', 'name');
+      const transformedStudents = students.map(student => {
+        const { class: { name, ...classInfo }, ...rest } = student.toObject();
+        return { ...rest, classname: name, classInfo };
+      });
+  
+      res.status(200).json(transformedStudents);
     } catch (err) {
       next(err)
     }

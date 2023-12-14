@@ -78,8 +78,6 @@ const Datatable = ({ column, name, type }) => {
     setRowid(id);
   }
 
-  console.log(data)
-
   // function that handles the format of the table
   const actionColumn = [
     {
