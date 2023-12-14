@@ -6,7 +6,7 @@ import {
   deleteFaculty,
   getFaculty,
   getFacultys,
-  teacherAttendance,
+  facultyAttendance,
 } from "../controllers/faculty.js";
 
 const router = express.Router();
@@ -17,6 +17,6 @@ router.put("/:id", updateFaculty);
 router.delete("/:id", deleteFaculty);
 router.get("/:id", getFaculty);
 router.get("/", getFacultys);
-router.post('/TeacherAttendance/:id', teacherAttendance);
+router.post('/facultyAttendance/:id', facultyAttendance);
 
 export default router;
