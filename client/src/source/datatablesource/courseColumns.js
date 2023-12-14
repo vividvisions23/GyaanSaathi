@@ -10,18 +10,13 @@ export const courseColumns = [
         width: 100,
     },
     {
-        field: "credits",
-        headerName: "Credits",
+        field: "classname",
+        headerName: "Class",
         width: 100,
     },
     {
-        field: "department",
-        headerName: "Department",
-        width: 100,
-    },
-    {
-        field: "semester",
-        headerName: "Semester",
-        width: 100,
+        field: "teachername",
+        headerName: "Teacher",
+        width: 200,
     },
 ];

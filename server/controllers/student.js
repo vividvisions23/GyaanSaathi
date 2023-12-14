@@ -1,5 +1,4 @@
 import Student from "../models/Student.js";
-import { semesters, departments } from "../utils/array.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
@@ -84,7 +83,10 @@ export const deleteStudent = async (req, res, next) => {
   
   export const getStudent = async (req, res, next) => {
     try {
-      const student = await Student.findById(req.params.id).populate('class', 'name');
+      const student = await Student.findById(req.params.id)
+      .populate('class', 'name')
+      .populate('courses');
+
       // Check if the student and student.class are present
     if (student && student.class) {
       // Transform the data before sending it in the response
@@ -93,6 +95,8 @@ export const deleteStudent = async (req, res, next) => {
 
       res.status(200).json(transformedStudent);
     }
+    else 
+      res.status(200).json(student)
    } catch (err) {
       next(err);
     }
@@ -100,7 +104,9 @@ export const deleteStudent = async (req, res, next) => {
   
   export const getStudents = async (req, res, next) => {
     try {
-      const students = await Student.find().populate('class', 'name');
+      const students = await Student.find()
+      .populate('class', 'name')
+      .populate('courses');
       const transformedStudents = students.map(student => {
         const { class: { name, ...classInfo }, ...rest } = student.toObject();
         return { ...rest, classname: name, classInfo };

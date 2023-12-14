@@ -12,6 +12,7 @@ const CourseSchema = new mongoose.Schema(
         },
         class: {
             type: mongoose.Schema.Types.ObjectId,
+            ref: 'Class',
             required: true
         }, 
         syllabusPicture: {
@@ -22,7 +23,8 @@ const CourseSchema = new mongoose.Schema(
         },
         teacher: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Faculty'
+            ref: 'Faculty',
+            required: true
         },
     }
 );

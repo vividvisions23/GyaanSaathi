@@ -1,10 +1,10 @@
 import "./single.scss";
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
 import { useLocation, useNavigate } from "react-router-dom";
 
 import Navbar from "../../components/navbar/Navbar";
 import AdminNavbar from "../../components/adminNavbar/AdminNavbar";
-import EditIcon from '@mui/icons-material/Edit';
 
 import useFetch from "../../hooks/useFetch";
 
@@ -25,30 +25,24 @@ const Single = ({ type }) => {
   // used to navigate to a certain link
   const navigate = useNavigate();
 
-  return (
-    <div className="single">
+  const colors = ['var(--light-blue)', 'var(--light-pink)', 'var(-light-yellow)', 'var(light-green)', 'var(light-red)']
 
-      <div className="singleContainer">
+  return (
+    <div className="studentProfile">
+
         {(type === "Admin") ? (<AdminNavbar />) : (<Navbar />)}
-        
+      
         <div className="top">
           <div className="left">
-        
-            <h1 className="title">Information</h1>
-            <div className="item">
-              
-              {/* Image if exists */}
-              <img
-                src={data.profilePicture || "https://i.ibb.co/MBtjqXQ/no-avatar.gif"}
-                alt=""
-                className="itemImg"
-              />
+            <img
+              src={data.profilePicture || "https://i.ibb.co/MBtjqXQ/no-avatar.gif"}
+              alt=""
+              className="itemImg"
+            />
 
-              {/* All the details */}
-              <div className="details">
-
-                {/* Name */}
-                <h1 className="itemTitle">{data.name}</h1>
+            <div className="details">
+              {/* Name */}
+              <h1 className="itemTitle">{data.name}</h1>
                 
                 {/* ID */}
                 <div className="detailItem">
@@ -97,20 +91,26 @@ const Single = ({ type }) => {
                   <span className="itemKey">Date of Birth:</span>
                   <span className="itemValue">{data.dob}</span>
                 </div>
-              </div>
+
+                <button className="editButton" onClick={() => navigate("edit")}>Edit</button>
             </div>
-
-            {/* Takes to Edit Page */}
-            <EditIcon style={{ height: "20px", paddingRight: "10px", cursor: "pointer" }} onClick={() => navigate("edit")} />
-            
           </div>
-
           <div className="right">
-            <h1 className="title">Semester Registration</h1>
-            
+            <div>Marks</div>
+            <div>Attendance</div>
           </div>
         </div>
-      </div>
+        <div className="bottom">
+          <h2 className="courseTitle">Courses</h2>
+          <div className="coursesContainer">
+            {data.courses?.map((item, index) => (
+              <div className="course" key={index} style={{ backgroundColor: colors[index % colors.length]}}>
+                <span className="view"><LibraryBooksIcon className="icon"/> view syllabus</span>
+                <h3>{item.subjectCode} {item.name}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
     </div>
   );
 };

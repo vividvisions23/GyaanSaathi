@@ -38,8 +38,20 @@ export const deleteCourse = async (req, res, next) => {
 
 export const getCourse = async (req, res, next) => {
   try {
-    const course = await Course.findById(req.params.id);
-    res.status(200).json(course);
+    const course = await Course.findById(req.params.id)
+      .populate('class', 'name')
+      .populate('teacher', 'teachername');
+
+    if (course && course.class) {
+      // Transform the data before sending it in the response
+      const { class: { name, ...classInfo }, ...rest } = course.toObject();
+      const { teacher: {teachername, ...teacherInfo}, ...teacherrest} = course.toObject();
+      const transformedCourse = { ...rest, classname: name, teacher: teachername, classInfo };
+
+      res.status(200).json(transformedCourse);
+    }
+    else 
+      res.status(200).json(course)
   } catch (err) {
     next(err);
   }
@@ -47,8 +59,15 @@ export const getCourse = async (req, res, next) => {
 
 export const getCourses = async (req, res, next) => {
   try {
-    const courses = await Course.find();
-    res.status(200).json(courses);
+    const courses = await Course.find()
+      .populate('class', 'name')
+      .populate('teacher', 'teachername');
+    const transformedCourses = courses.map(course => {
+      const { class: { name, ...classInfo }, ...rest } = course.toObject();
+      const {teacher: {teachername, ...teacherInfo}, ...teacherrest} = course.toObject();
+      return { ...rest, classname: name, teachername: teachername, classInfo };
+    });
+    res.status(200).json(transformedCourses);
   } catch (err) {
     next(err)
   }

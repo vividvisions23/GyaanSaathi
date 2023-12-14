@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const FacultySchema = new mongoose.Schema(
   {
-    name: {
+    teachername: {
       type: String,
       required: true
     },
