@@ -9,13 +9,14 @@ import { useState } from "react";
 
 import axios from "axios"
 
-import { departments, semesters} from "../../source/formsource/arrays";
 import AdminNavbar from "../../components/adminNavbar/AdminNavbar";
+import useFetch from "../../hooks/useFetch";
 
 const NewUser = ({ inputs, title }) => {
   
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
+  const classes = useFetch('/classes').data
   const [year, setYear] = useState(0);
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -128,38 +129,20 @@ const NewUser = ({ inputs, title }) => {
                 </div>
               ))}
 
-              <div className="formInput">
-                <label>Semester</label>
-                <select
-                  id="semester"
-                  onChange={handleChange}
-                >
-                  <option value={0}>-</option>
-                  {
-                    semesters.map((s) => (
-                      <option value={s.id} key={s.id} onClick={() => setYear(s.year)}>{s.name}</option>
-                    ))
-                  }
-                </select>
-              </div>
 
               <div className="formInput">
-                <label>Choose a Department</label>
+                <label>Choose a Class</label>
                 <select
-                  id="department"
+                  id="class"
                   onChange={handleChange}
                 >
                   <option value={"-"}> </option>
                   {
-                    departments.map((d) => (
-                      <option value={d.name} key={d.id}>{d.name}</option>
+                    classes&& classes.map((c, index) => (
+                      <option value={c._id} key={index}>{c.name}</option>
                     ))
                   }
                 </select>
-              </div>
-
-              <div className="formInput">
-                <label>Year: {year}</label>
               </div>
 
             </form>

@@ -1,4 +1,5 @@
 import Student from "../models/Student.js";
+import Class from "../models/Class.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
@@ -19,6 +20,11 @@ export const registerStudent = async (req, res, next) => {
       ...req.body,
       password: hash,
     });
+
+    await Class.updateOne(
+      { _id: newStudent.class },
+      { $addToSet: { students: newStudent._id } }
+    );
 
     await newStudent.save();
     res.status(200).send("Student has been created.");
@@ -74,7 +80,20 @@ export const updateStudent = async (req, res, next) => {
 
 export const deleteStudent = async (req, res, next) => {
     try {
-      await Student.findByIdAndDelete(req.params.id);
+      const student = await Student.findById(req.params.id)
+
+      if (!student) {
+        return res.status(404).json({ message: 'Student not found' });
+      }
+
+      try {
+        await Class.findByIdAndUpdate(student.class, {$pull: {students: req.params.id}});
+      }
+      catch (err) {
+        next(err);
+      }
+
+      await student.remove();
       res.status(200).json("the Student has been deleted");
     } catch (err) {
       next(err);

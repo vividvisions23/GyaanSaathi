@@ -1,4 +1,5 @@
 import Class from "../models/Class.js";
+import Student from "../models/Student.js";
 
 export const createClass = async (req, res, next) => {
 
@@ -26,7 +27,21 @@ export const updateClass = async (req, res, next) => {
 
 export const deleteClass = async (req, res, next) => {
     try {
-        await Class.findByIdAndDelete(req.params.id);
+        const deletedClass = await Class.findById(req.params.id);
+
+        if (!deletedClass) {
+        return res.status(404).json({ message: 'Class not found' });
+        }
+
+        // Remove class reference from associated students
+        await Student.updateMany(
+        { class: deletedClass._id },
+        { $unset: { class: 1 } }
+        );
+
+        // Now, delete the class
+        await deletedClass.remove();
+
         res.status(200).json("the Class has been deleted");
     } catch (err) {
         next(err);
@@ -44,7 +59,7 @@ export const getClass = async (req, res, next) => {
 
 export const getClasses = async (req, res, next) => {
     try {
-        const classes = await Classes.find();
+        const classes = await Class.find();
         res.status(200).json(classes);
     } catch (err) {
         next(err)
