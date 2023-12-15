@@ -57,6 +57,16 @@ export const getCourse = async (req, res, next) => {
   }
 };
 
+// this function fetches info without populate
+export const getSingleCourse = async (req, res, next) => {
+  try {
+    const course = await Course.findById(req.params.id);
+    res.status(200).json(course);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getCourses = async (req, res, next) => {
   try {
     const courses = await Course.find()
@@ -65,7 +75,12 @@ export const getCourses = async (req, res, next) => {
     const transformedCourses = courses.map(course => {
       const { class: { name, ...classInfo }, ...rest } = course.toObject();
       const {teacher: {teachername, ...teacherInfo}, ...teacherrest} = course.toObject();
-      return { ...rest, classname: name, teachername: teachername, classInfo };
+
+      if(course.teacher)
+        return { ...rest, classname: name, teachername: teachername, classInfo };
+      else 
+        return {...rest, classname: name, classInfo};
+      
     });
     res.status(200).json(transformedCourses);
   } catch (err) {

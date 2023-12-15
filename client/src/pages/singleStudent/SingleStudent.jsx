@@ -1,17 +1,26 @@
 import "./single.scss";
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
-import { useLocation, useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate} from "react-router-dom";
+import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import AdminNavbar from "../../components/adminNavbar/AdminNavbar";
 
 import useFetch from "../../hooks/useFetch";
+import ImageModal from "../../components/imageModal/ImageModal";
 
 const Single = ({ type }) => {
   
   // get id of the user using location
   // auth context can also be used 
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
+
+  const openModal = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setModalOpen(true);
+  };
+
 
   const location = useLocation();
   
@@ -105,12 +114,14 @@ const Single = ({ type }) => {
           <div className="coursesContainer">
             {data.courses?.map((item, index) => (
               <div className="course" key={index} style={{ backgroundColor: colors[index % colors.length]}}>
-                <span className="view"><LibraryBooksIcon className="icon"/> view syllabus</span>
                 <h3>{item.subjectCode} {item.name}</h3>
+                {item.syllabusPicture && <img src={item.syllabusPicture} alt="syllabusPicture" />}
+                <button onClick={() => openModal(item.syllabusPicture)}>View Syllabus</button>
               </div>
             ))}
           </div>
         </div>
+        {modalOpen && <ImageModal imageUrl={selectedImage} setModalOpen={setModalOpen} />}
     </div>
   );
 };
