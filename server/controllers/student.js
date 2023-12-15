@@ -21,13 +21,19 @@ export const registerStudent = async (req, res, next) => {
       password: hash,
     });
 
-    await Class.updateOne(
-      { _id: newStudent.class },
-      { $addToSet: { students: newStudent._id } }
-    );
+    try {
+      await Class.updateOne(
+        { _id: newStudent.class },
+        { $addToSet: { students: newStudent._id } }
+      );
+
+    }
+    catch(err) {
+      next(err)
+    }
 
     await newStudent.save();
-    res.status(200).send("Student has been created.");
+    res.status(200).send(newStudent);
   } catch (err) {
     next(err);
   }

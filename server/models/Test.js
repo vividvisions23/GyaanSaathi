@@ -15,8 +15,7 @@ const TestSchema = new mongoose.Schema(
             required: true
         }, 
         author: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Faculty',
+            type: String,
             required: true
         },
         class: {

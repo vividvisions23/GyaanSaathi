@@ -1,11 +1,21 @@
 import Course from "../models/Course.js";
-
+import Class from "../models/Class.js";
 
 export const createCourse = async (req, res, next) => {
 
 
   const newCourse = new Course(req.body);
+  
   try {
+    try{
+      await Class.updateOne(
+        {_id: newCourse.class},
+        {$addToSet: {subjects: newCourse._id}}
+      )
+    }
+    catch (err) {
+      next(err)
+    }
     const savedCourse = await newCourse.save();
     res.status(200).json(savedCourse);
   } catch (err) {
@@ -28,8 +38,21 @@ export const updateCourse = async (req, res, next) => {
 };
 
 export const deleteCourse = async (req, res, next) => {
+  const course = await Course.findById(req.params.id)
+
+  if(!course) {
+    return res.status(404).json({message: "Course not found"})
+  }
+
   try {
-    await Course.findByIdAndDelete(req.params.id);
+    try {
+      await Class.findByIdAndUpdate(course.class, {$pull: {subjects: req.params.id}})
+    }
+    catch(err) {
+
+    }
+
+    await course.remove();
     res.status(200).json("the Course has been deleted");
   } catch (err) {
     next(err);
