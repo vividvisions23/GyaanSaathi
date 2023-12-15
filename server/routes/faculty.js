@@ -5,7 +5,8 @@ import {
   updateFaculty,
   deleteFaculty,
   getFaculty,
-  getFacultys
+  getFacultys,
+  getFacultyClasses
 } from "../controllers/faculty.js";
 
 const router = express.Router();
@@ -16,6 +17,7 @@ router.put("/:id", updateFaculty);
 router.delete("/:id", deleteFaculty);
 router.get("/:id", getFaculty);
 router.get("/", getFacultys);
+router.get("/classes/:id", getFacultyClasses);
 
 
 export default router;

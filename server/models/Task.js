@@ -14,14 +14,12 @@ const TaskSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    class: {
+    sclass: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Class',
-      required: true
     },
     author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Faculty',
+      type: String,
       required: true
     },
     pace: {

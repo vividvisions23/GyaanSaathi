@@ -35,6 +35,16 @@ export const deleteTask = async (req, res, next) => {
 
 export const getTask = async (req, res, next) => {
   try {
+    const task = await Task.findById(req.params.id).populate('sclass', 'name');
+    res.status(200).json(task);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// fetches tasks without population
+export const getSingleTask = async (req, res, next) => {
+  try {
     const task = await Task.findById(req.params.id);
     res.status(200).json(task);
   } catch (err) {

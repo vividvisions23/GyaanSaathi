@@ -1,11 +1,11 @@
 import "../../style/form.scss";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import DatePicker from "react-datepicker";
 import axios from "axios";
 import useFetch from "../../hooks/useFetch";
-
+import { AuthContext } from "../../context/AuthContext";
 import Navbar from "../../components/navbar/Navbar";
 
 const EditTask = ({ title }) => {
@@ -14,9 +14,13 @@ const EditTask = ({ title }) => {
   const location = useLocation();
   const id = location.pathname.split("/")[3];
   const [info, setInfo] = useState({});
-
+  const { user } = useContext(AuthContext)
+  const classes = useFetch(`/faculties/classes/${user._id}`).data
+  
+  const [deadline, setDeadline] = useState("");
   // fetch data using id
-  const { data } = useFetch(`/tasks/${id}`)
+  const { data } = useFetch(`/tasks/single/${id}`)
+  const [sclass, setSclass] = useState("");
 
   const navigate = useNavigate();
 
@@ -34,7 +38,10 @@ const EditTask = ({ title }) => {
     e.preventDefault();
     try {
 
-      await axios.put(`http://localhost:5500/api/tasks/${id}`, info, {
+      const editTask = {
+        ...info, deadline: deadline, sclass: sclass 
+      }
+      await axios.put(`http://localhost:5500/api/tasks/${id}`, editTask, {
         withCredentials: false
       });
 
@@ -73,16 +80,6 @@ const EditTask = ({ title }) => {
                 />
               </div>
 
-              <div className="formInput">
-                <label>Task Deadline </label>
-                <input
-                  id="deadline"
-                  onChange={handleChange}
-                  type="date"
-                  value={info.deadline}
-                />
-              </div>
-
               <div className="formInput" >
                 <label>Description</label>
                 <input
@@ -93,7 +90,38 @@ const EditTask = ({ title }) => {
                   placeholder="Add task desciption"
                 />
               </div>
-            </form>
+
+            <div className="formInput">
+                <label>Choose a Class</label>
+                <select
+                  onChange={(e) => setSclass(e.target.value)}
+                  id="classId">
+                    {
+                      classes && classes.length > 0 &&
+                      classes.map((cl, index) => (
+                        <option key={index} value={cl._id}>{cl.name}</option>
+                        ))
+                      }
+                </select>
+              </div>
+
+              <div className="formInput">
+
+                <label>Set Deadline</label>
+                <DatePicker
+                  class="date-picker"
+                  placeholderText="Choose Date and Time"
+                  style={{ marginRight: "10px" }}
+                  selected={deadline}
+                  className="formInput"
+                  onChange={(selectedDate) => {
+                    // Set only the date part to the state
+                    const dateWithoutTime = new Date(selectedDate.setHours(0, 0, 0, 0));
+                    setDeadline(dateWithoutTime);
+                  }}
+                  />
+              </div>
+                  </form>
 
             {/* Submit Button */}
             <div className="submitButton">
