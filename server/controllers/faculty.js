@@ -2,7 +2,8 @@ import Faculty from "../models/Faculty.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
-
+import Class from "../models/Class.js";
+import Course from "../models/Course.js";
 
 export const registerFaculty = async (req, res, next) => {
   try {
@@ -64,6 +65,13 @@ export const updateFaculty = async (req, res, next) => {
       { $set: req.body },
       { new: true }
     );
+     // Update the faculty in the class CHECKED
+    await Class.findByIdAndUpdate(
+      req.body.class,
+      { subjects: { $in: updatedFaculty.subjectsTaught } },
+      { $addToSet: { teachers: updatedFaculty._id } },
+      { new: true }
+    );
     res.status(200).json(updatedFaculty);
   } catch (err) {
     next(err);
@@ -73,6 +81,11 @@ export const updateFaculty = async (req, res, next) => {
 export const deleteFaculty = async (req, res, next) => {
     try {
       await Faculty.findByIdAndDelete(req.params.id);
+      // Remove the faculty from the class CHECKED
+      await Class.findByIdAndUpdate(
+        deletedFaculty.class,
+        { $pull: { teachers: deletedFaculty._id } }
+      );
       res.status(200).json("the Faculty has been deleted");
     } catch (err) {
       next(err);
@@ -97,6 +110,3 @@ export const deleteFaculty = async (req, res, next) => {
       next(err)
     }
   }
-
-
-

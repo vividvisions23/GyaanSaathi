@@ -4,6 +4,11 @@ import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
 
+function generateClassCode(semester, department) {
+  const index = departments.findIndex(d => d.name === department)
+  return `${departments[index].code}-${semester}`;
+}
+
 export const registerStudent = async (req, res, next) => {
   try {
 
@@ -21,6 +26,14 @@ export const registerStudent = async (req, res, next) => {
     });
 
     await newStudent.save();
+
+     // Automatically inject the new student into the associated class
+    await Class.findByIdAndUpdate(
+      req.body.class,
+      { $addToSet: { students: newStudent._id } },
+      { new: true }
+    );
+
     res.status(200).send("Student has been created.");
   } catch (err) {
     next(err);
@@ -66,6 +79,12 @@ export const updateStudent = async (req, res, next) => {
       { $set: req.body },
       { new: true }
     );
+    // Update the student in the class
+    await Class.findByIdAndUpdate(
+      req.body.class,
+      { $addToSet: { students: updatedStudent._id } },
+      { new: true }
+    );
     res.status(200).json(updatedStudent);
   } catch (err) {
     next(err);
@@ -74,7 +93,15 @@ export const updateStudent = async (req, res, next) => {
 
 export const deleteStudent = async (req, res, next) => {
     try {
-      await Student.findByIdAndDelete(req.params.id);
+      const student = await Student.findByIdAndDelete(req.params.id);
+
+        // Remove the student from the class
+        await Class.findByIdAndUpdate(
+            student.class,
+            { $pull: { students: student._id } },
+            { new: true }
+        );
+
       res.status(200).json("the Student has been deleted");
     } catch (err) {
       next(err);
@@ -117,6 +144,3 @@ export const deleteStudent = async (req, res, next) => {
       next(err)
     }
   }
-
-
-
