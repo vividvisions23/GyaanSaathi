@@ -67,6 +67,20 @@ const FacultySchema = new mongoose.Schema(
         ref: 'Course',
       },
     ],
+    attendance: [
+      {
+        date: {
+          type: Date,
+          required: true,
+        },
+        presentCount: {
+          type: String,
+        },
+        absentCount: {
+          type: String,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
