@@ -1,6 +1,5 @@
 import Faculty from "../models/Faculty.js";
 import Course from "../models/Course.js";
-import Class from "../models/Class.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
@@ -100,7 +99,7 @@ export const deleteFaculty = async (req, res, next) => {
   
   export const getFaculty = async (req, res, next) => {
     try {
-      const faculty = await Faculty.findById(req.params.id).populate('subject');
+      const faculty = await Faculty.findById(req.params.id).populate('subjectsTaught');
       res.status(200).json(faculty);
     } catch (err) {
       next(err);
@@ -109,7 +108,7 @@ export const deleteFaculty = async (req, res, next) => {
   
   export const getFacultys = async (req, res, next) => {
     try {
-      const facultys = await Faculty.find().populate('subject');
+      const facultys = await Faculty.find().populate('subjectsTaught');
       
       res.status(200).json(facultys);
     } catch (err) {
@@ -132,6 +131,32 @@ export const deleteFaculty = async (req, res, next) => {
       next(err)
     }
   }
+  export const facultyAttendance = async (req, res, next) => {
+    const { status, date } = req.body;
+  
+    try {
+      const faculty = await Faculty.findById(req.params.id);
+  
+      if (!faculty) {
+        return res.send({ message: "Faculty not found" });
+      }
+  
+      const existingAttendance = faculty.attendance.find(
+        (a) => a.date.toDateString() === new Date(date).toDateString()
+      );
+  
+      if (existingAttendance) {
+        existingAttendance.status = status;
+      } else {
+        faculty.attendance.push({ date, status });
+      }
+  
+      const result = await faculty.save();
+      return res.send(result);
+    } catch (error) {
+      next(error);
+    }
+  };
 
 
 

@@ -68,11 +68,28 @@ const StudentSchema = new mongoose.Schema(
     isFaculty: {
       type: Boolean,
       default: false
-    }
+    },
+    attendance: [
+      {
+        date: {
+          type: Date,
+          required: true,
+        },
+        status: {
+          type: String,
+          enum: ['Present', 'Absent'],
+          required: true,
+        },
+        subName: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'subject',
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
-
 
 
 export default mongoose.model("Student", StudentSchema);

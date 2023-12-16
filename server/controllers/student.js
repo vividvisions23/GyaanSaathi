@@ -171,5 +171,105 @@ export const getSingleStudent = async (req, res, next) => {
     }
   }
 
+  export const studentAttendance = async (req, res, next) => {
+    const { subName, status, date } = req.body;
+  
+    try {
+      const student = await Student.findById(req.params.id);
+  
+      if (!student) {
+        return res.send({ message: 'Student not found' });
+      }
+  
+      const subject = await Subject.findById(subName);
+  
+      const existingAttendance = student.attendance.find(
+        (a) =>
+          a.date.toDateString() === new Date(date).toDateString() &&
+          a.subName.toString() === subName
+      );
+  
+      if (existingAttendance) {
+        existingAttendance.status = status;
+      } else {
+        // Check if the student has already attended the maximum number of sessions
+        const attendedSessions = student.attendance.filter(
+          (a) => a.subName.toString() === subName
+        ).length;
+  
+        if (attendedSessions >= subject.sessions) {
+          return res.send({ message: 'Maximum attendance limit reached' });
+        }
+  
+        student.attendance.push({ date, status, subName });
+      }
+  
+      const result = await student.save();
+      return res.send(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  export const clearAllStudentsAttendanceBySubject = async (req, res, next) => {
+    const subName = req.params.id;
+  
+    try {
+      const result = await Student.updateMany(
+        { 'attendance.subName': subName },
+        { $pull: { attendance: { subName } } }
+      );
+      return res.send(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  export const clearAllStudentsAttendance = async (req, res, next) => {
+    const schoolId = req.params.id;
+  
+    try {
+      const result = await Student.updateMany(
+        { school: schoolId },
+        { $set: { attendance: [] } }
+      );
+  
+      return res.send(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  export const removeStudentAttendanceBySubject = async (req, res, next) => {
+    const studentId = req.params.id;
+    const subName = req.body.subId;
+  
+    try {
+      const result = await Student.updateOne(
+        { _id: studentId },
+        { $pull: { attendance: { subName: subName } } }
+      );
+  
+      return res.send(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  export const removeStudentAttendance = async (req, res, next) => {
+    const studentId = req.params.id;
+  
+    try {
+      const result = await Student.updateOne(
+        { _id: studentId },
+        { $set: { attendance: [] } }
+      );
+  
+      return res.send(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+
 
 

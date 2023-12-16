@@ -6,7 +6,8 @@ import {
   deleteFaculty,
   getFaculty,
   getFacultys,
-  getFacultyClasses
+  getFacultyClasses,
+  facultyAttendance,
 } from "../controllers/faculty.js";
 
 const router = express.Router();
@@ -19,5 +20,6 @@ router.get("/:id", getFaculty);
 router.get("/", getFacultys);
 router.get("/classes/:id", getFacultyClasses);
 
+router.post('/facultyAttendance/:id', facultyAttendance);
 
 export default router;
