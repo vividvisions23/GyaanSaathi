@@ -68,7 +68,7 @@ const StudentSchema = new mongoose.Schema(
     isFaculty: {
       type: Boolean,
       default: false
-    },
+    }
   },
   { timestamps: true }
 );

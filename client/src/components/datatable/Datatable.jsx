@@ -134,8 +134,15 @@ const Datatable = ({ column, name, type }) => {
     <div className="datatable">
       
       {/* Title will be shown based on which table is */}
-      <div className="datatableTitle">
+      <div className="datatableHeader">
+        <div className="datatableTitle">
         {name}
+        </div>
+        <Link to={`/admin/${path}/new`} style={{"textDecoration": "none"}}>
+          <div className="link">
+            Create
+          </div>
+        </Link>
       </div>
 
       {/* Datagrid element */}

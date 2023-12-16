@@ -8,13 +8,15 @@ import jwt from "jsonwebtoken";
 export const registerStudent = async (req, res, next) => {
   try {
 
-    const em = await Student.findOne({ email: req.body.email });
+    const {email, password} = req.body;
+
+    const em = await Student.findOne({ email });
     if (em)
       return res.status(409).send({ message: "User with given email already exists" })
 
 
     const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(req.body.password, salt);
+    const hash = bcrypt.hashSync(password, salt);
 
     const newStudent = new Student({
       ...req.body,
@@ -27,6 +29,16 @@ export const registerStudent = async (req, res, next) => {
         { $addToSet: { students: newStudent._id } }
       );
 
+    }
+    catch(err) {
+      next(err)
+    }
+
+    try {
+      const populatedClass = await Class.findById(newStudent.class).populate('subjects'); 
+      if(populatedClass) {
+        newStudent.courses = populatedClass.subjects.map((subject) => subject._id);
+      }
     }
     catch(err) {
       next(err)
@@ -109,29 +121,45 @@ export const deleteStudent = async (req, res, next) => {
   export const getStudent = async (req, res, next) => {
     try {
       const student = await Student.findById(req.params.id)
-      .populate('class', 'name')
-      .populate('courses');
+      .populate({
+        path: 'class',
+        select: 'name subjects',
+        populate: {
+          path: 'subjects',
+          model: 'Course',
+        },
+      })
+      .exec();
+    
+      if (!student) {
+        return res.status(404).json({ message: 'Student not found' });
+      }
 
-      // Check if the student and student.class are present
-    if (student && student.class) {
-      // Transform the data before sending it in the response
-      const { class: { name, ...classInfo }, ...rest } = student.toObject();
-      const transformedStudent = { ...rest, classname: name, classInfo };
+    // Transform the data before sending it in the response
+    const { class: { name, ...classInfo }, ...rest } = student.toObject();
+    const transformedStudent = { ...rest, classname: name, classInfo };
 
-      res.status(200).json(transformedStudent);
-    }
-    else 
-      res.status(200).json(student)
+    res.status(200).json(transformedStudent);
    } catch (err) {
       next(err);
     }
   };
+
+  // this function fetches info without populate
+export const getSingleStudent = async (req, res, next) => {
+  try {
+    const student = await Student.findById(req.params.id).populate('class', 'name');
+    res.status(200).json(student);
+  } catch (err) {
+    next(err);
+  }
+};
   
   export const getStudents = async (req, res, next) => {
     try {
       const students = await Student.find()
       .populate('class', 'name')
-      .populate('courses');
+
       const transformedStudents = students.map(student => {
         const { class: { name, ...classInfo }, ...rest } = student.toObject();
         return { ...rest, classname: name, classInfo };

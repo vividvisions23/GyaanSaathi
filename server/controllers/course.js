@@ -7,6 +7,8 @@ export const createCourse = async (req, res, next) => {
   const newCourse = new Course(req.body);
   
   try {
+
+    // add course to courses array in class
     try{
       await Class.updateOne(
         {_id: newCourse.class},
@@ -16,6 +18,7 @@ export const createCourse = async (req, res, next) => {
     catch (err) {
       next(err)
     }
+
     const savedCourse = await newCourse.save();
     res.status(200).json(savedCourse);
   } catch (err) {

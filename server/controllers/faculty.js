@@ -1,4 +1,6 @@
 import Faculty from "../models/Faculty.js";
+import Course from "../models/Course.js";
+import Class from "../models/Class.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
@@ -11,16 +13,33 @@ export const registerFaculty = async (req, res, next) => {
     if (em)
       return res.status(409).send({ message: "User with given email already exists" })
 
+      const password = req.body.password;
+      console.log(password);
+
     const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(req.body.password, salt);
+    const hash = bcrypt.hashSync(password, salt);
 
     const newFaculty = new Faculty({
       ...req.body,
       password: hash,
     });
 
+    try {
+      // Extract the classes for the given subjects
+      const classesForSubjects = await Course.find({ _id: { $in: newFaculty.subjectsTaught } })
+      .distinct('class')
+      .exec();
+
+      // Update the faculty's classesTaught field
+      newFaculty.classesTaught = [...new Set([...faculty.classesTaught, ...classesForSubjects])];
+
+    }
+    catch(err) {
+      next(err)
+    }
+
     await newFaculty.save();
-    res.status(200).send("Faculty has been created.");
+    res.status(200).send(newFaculty);
   } catch (err) {
     next(err);
   }

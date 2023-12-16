@@ -17,7 +17,6 @@ const NewUser = ({ inputs, title }) => {
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
   const classes = useFetch('/classes').data
-  const [year, setYear] = useState(0);
   const navigate = useNavigate();
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -42,7 +41,7 @@ const NewUser = ({ inputs, title }) => {
         const { url } = uploadRes.data;
         const { public_id } = uploadRes.data;
         const newuser = {
-          ...info, profilePicture: url, cloud_id: public_id, year: year
+          ...info, profilePicture: url, cloud_id: public_id
         }
 
         axios.post("http://localhost:5500/api/students/registerStudent", newuser, {

@@ -31,6 +31,7 @@ const Single = ({ type }) => {
     id = location.pathname.split("/")[3];
   const { data } = useFetch(`/students/${id}`)
   
+  
   // used to navigate to a certain link
   const navigate = useNavigate();
 
@@ -112,10 +113,10 @@ const Single = ({ type }) => {
         <div className="bottom">
           <h2 className="courseTitle">Courses</h2>
           <div className="coursesContainer">
-            {data.courses?.map((item, index) => (
+            {data.classInfo?.subjects?.map((item, index) => (
               <div className="course" key={index} style={{ backgroundColor: colors[index % colors.length]}}>
-                <h3>{item.subjectCode} {item.name}</h3>
-                {item.syllabusPicture && <img src={item.syllabusPicture} alt="syllabusPicture" />}
+                <h3>{item.name}</h3>
+                <p>{item.subjectCode}</p>
                 <button onClick={() => openModal(item.syllabusPicture)}>View Syllabus</button>
               </div>
             ))}
