@@ -86,7 +86,7 @@ export const deleteFaculty = async (req, res, next) => {
   
   export const getFaculty = async (req, res, next) => {
     try {
-      const faculty = await Faculty.findById(req.params.id).populate('subjectsTaught');
+      const faculty = await Faculty.findById(req.params.id).populate('subjectsTaught').populate('classesTaught', 'name');
       res.status(200).json(faculty);
     } catch (err) {
       next(err);

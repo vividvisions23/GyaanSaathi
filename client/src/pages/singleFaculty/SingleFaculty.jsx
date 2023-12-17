@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import Navbar from "../../components/navbar/Navbar";
 import AdminNavbar from "../../components/adminNavbar/AdminNavbar";
-import EditIcon from '@mui/icons-material/Edit';
+import Course from "../../components/course/Course";
 
 import useFetch from "../../hooks/useFetch";
 
@@ -21,24 +21,21 @@ const Single = ({ type }) => {
   else
     id = location.pathname.split("/")[3];
   const { data } = useFetch(`/faculties/${id}`)
+
+  const colors = ['var(--turquoise)', 'var(--pink)', 'var(--red)', 'var(--green)', 'var(--orange)']
+
   
   // used to navigate to a certain link
   const navigate = useNavigate();
 
   return (
-    <div className="singleFaculty">
+    <div className="facultyProfile">
 
-      <div className="singleContainer">
         {(type === "Admin") ? (<AdminNavbar />) : (<Navbar />)}
         
         <div className="top">
           <div className="left">
-        
-            <h1 className="title">Information</h1>
-            <div className="item">
-              
-              {/* Image if exists */}
-              <img
+          <img
                 src={data.profilePicture || "https://i.ibb.co/MBtjqXQ/no-avatar.gif"}
                 alt=""
                 className="itemImg"
@@ -103,16 +100,39 @@ const Single = ({ type }) => {
                   <span className="itemKey">Date of Birth:</span>
                   <span className="itemValue">{data.dob}</span>
                 </div>
-              </div>
-            </div>
 
-            {/* Takes to Edit Page */}
-            <EditIcon style={{ height: "20px", paddingRight: "10px", cursor: "pointer" }} onClick={() => navigate("edit")} />
-            
+                <button className="editButton" onClick={() => navigate("edit")}>Edit Profile</button>
+
+              </div>
+          </div>
+          <div className="right">
+            <h2 className="cTitle">Classes</h2>
+            <div className="classesContainer">
+              {data?.classesTaught?.map((item, index) => (
+                <div className="classContainer" key={index} style={{ backgroundColor: colors[index % colors.length], color: "white"}}>
+                  {item.name} Standard
+                </div>
+              ))}
+            </div>
+            <h2 className="cTitle">Courses</h2>
+            <div className="coursesContainer">
+              {data?.subjectsTaught?.map((item, index) => (
+                <Course 
+                  name={item.name}
+                  index={index}
+                  subjectCode={item.subjectCode}
+                  syllabusPicture={item.syllabusPicture} 
+                />
+              ))}
+            </div>
           </div>
 
         </div>
-      </div>
+
+        <div className="bottom">
+
+        </div>
+
     </div>
   );
 };

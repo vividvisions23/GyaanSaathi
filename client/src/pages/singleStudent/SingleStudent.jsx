@@ -90,7 +90,7 @@ const Single = ({ type }) => {
                   <span className="itemValue">{data.dob}</span>
                 </div>
 
-                <button className="editButton" onClick={() => navigate("edit")}>Edit</button>
+                <button className="editButton" onClick={() => navigate("edit")}>Edit Profile</button>
             </div>
           </div>
           <div className="right">
