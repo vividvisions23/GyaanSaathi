@@ -124,6 +124,16 @@ const Datatable = ({ column, name, type }) => {
               </div>
             }
 
+            {/* Only admin can add a course to a teacher so it will only be visible to him */}
+            {
+              (type === "Admin" && path === "faculties") && <Link to={`/admin/${path}/${params.row._id}/addCourse`} style={{ textDecoration: "none" }}>
+                <div className="viewButton"
+              >
+                Add Course
+              </div>
+              </Link>
+            }
+
           </div >
         );
       },

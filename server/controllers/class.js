@@ -65,3 +65,17 @@ export const getClasses = async (req, res, next) => {
         next(err)
     }
 }
+
+export const getClassesWithSubjects = async(req, res, next) => {
+    try {
+        const classes = await Class.find().populate({
+            path: 'subjects',
+            model: 'Course', // Specify the model for the 'subjects' path
+          });
+
+        res.status(200).json(classes);
+    }
+    catch(err) {
+        next(err)
+    }
+}

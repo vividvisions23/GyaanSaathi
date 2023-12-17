@@ -61,6 +61,7 @@ import EditStudent from './pages/student/EditStudent';
 import EditFaculty from './pages/faculty/EditFaculty';
 import NewTimeTable from "./pages/timetable/NewTimeTable";
 import Class from "./pages/class/Class";
+import AddClass from "./pages/class/AddClass";
 
 
 function App() {
@@ -357,10 +358,10 @@ function App() {
         {/* edit classes */}
 
         <Route 
-          path="/admin/classes/:classId/edit" element={
+          path="/admin/faculties/:facId/addCourse" element={
             <RequireAdmin>
               <RequireAuth>
-                {/* <EditCourse title="Edit Classes" type="Admin"/> */}
+                <AddClass />
               </RequireAuth>
             </RequireAdmin>
           }
