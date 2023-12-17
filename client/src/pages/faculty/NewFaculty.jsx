@@ -138,50 +138,6 @@ const NewFaculty = ({ inputs, title }) => {
                 </div>
               ))}
 
-              <div className="formInput">
-                <label>Designation</label>
-                <select
-                  id="designation"
-                  onChange={handleChange}
-                >
-                  <option value={"none"}>none</option>
-                  <option value={"PHD Scholar"}>PHD Scholar</option>
-                  <option value={"Assistant Professor"}>Assistant Professor</option>
-                  <option value={"Professor"}>Professor</option>
-                  <option value={"Doctor"}>Doctor</option>
-                </select>
-              </div>
-
-              <div className="formInput">
-                <label>Choose a Department</label>
-                <select
-                  id="department"
-                  onChange={handleChange}
-                >
-                  <option value={"-"}> </option>
-                  {
-                    departments.map((d) => (
-                      <option value={d.name} key={d.id}>{d.name}</option>
-                    ))
-                  }
-                </select>
-              </div>
-
-              {info.department && <div className="formInput">
-                <label>Course Taught</label>
-                <select
-                  id="subject"
-                  onChange={handleChange}
-                >
-                  {
-                    deptCourse.map((course) => (
-                      <option value={course._id} onClick={() => setClasscode(course.classCode)}>{course.name}</option>
-                    ))
-                  }
-                  <option value={"none"}>none</option>
-                  
-                </select>
-              </div>}
 
             </form>
             <div className="submitButton">

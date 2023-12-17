@@ -60,6 +60,7 @@ import Landing from "./pages/Landing/Landing";
 import EditStudent from './pages/student/EditStudent';
 import EditFaculty from './pages/faculty/EditFaculty';
 import NewTimeTable from "./pages/timetable/NewTimeTable";
+import Class from "./pages/class/Class";
 
 
 function App() {
@@ -335,7 +336,7 @@ function App() {
           path="/admin/classes" element={
             <RequireAdmin>
               <RequireAuth>
-                {/* <List column={classColumns} name="Class" type="Admin"/> */}
+                <Class />
               </RequireAuth>
             </RequireAdmin>
           }

@@ -48,7 +48,7 @@ const Single = ({ type }) => {
               <div className="details">
 
                 {/* Name */}
-                <h1 className="itemTitle">{data.name}</h1>
+                <h1 className="itemTitle">{data.teachername}</h1>
                 
                 {/* ID */}
                 <div className="detailItem">
@@ -79,12 +79,6 @@ const Single = ({ type }) => {
                   <span className="itemKey">Address:</span>
                   <span className="itemValue">{data.facultyAddress}</span>
                 </div>
-                
-                {/* Department */}
-                <div className="detailItem">
-                  <span className="itemKey">Department:</span>
-                  <span className="itemValue">{data.department}</span>
-                </div>
 
                 {/* Joining Year */}
                 <div className="detailItem">
@@ -95,19 +89,13 @@ const Single = ({ type }) => {
                 {/* Courses */}
                 <div className="detailItem">
                   <span className="itemKey">Course:</span>
-                  <span className="itemValue">{data.subject.name}</span>
+                  {/* <span className="itemValue">{data.subject.name}</span> */}
                 </div>
 
                 {/* Gender */}
                 <div className="detailItem">
                   <span className="itemKey">Gender:</span>
                   <span className="itemValue">{data.gender}</span>
-                </div>
-
-                {/* Designation */}
-                <div className="detailItem">
-                  <span className="itemKey">Designation:</span>
-                  <span className="itemValue">{data.designation}</span>
                 </div>
 
                 {/* Date of Birth */}

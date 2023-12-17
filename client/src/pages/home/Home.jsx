@@ -3,8 +3,7 @@ import "./home.scss";
 // calling all the components on the page
 import Navbar from "../../components/navbar/Navbar";
 import AdminNavbar from "../../components/adminNavbar/AdminNavbar"
-import Featured from "../../components/featured/Featured";
-import Chart from "../../components/chart/Chart";
+import FacultyButton from "../../components/facultyButtons/FacultyButton"
 import AdminWidgets from "../../components/adminWidgets/AdminWidgets";
 import AdminButton from "../../components/adminButtons/AdminButton"
 import Table from "../../components/table/Table";
@@ -26,9 +25,9 @@ const Home = ({ type }) => {
           </div>
         </div>
 
-        <div className="widgets">
+        {type==="Admin" && <div className="widgets">
           <AdminWidgets />
-        </div>
+        </div>}
 
 
         <div className="mainContainer">
@@ -40,9 +39,14 @@ const Home = ({ type }) => {
           </div>
 
           {/* Shortcut Buttons */}
-          <div className="AdminButtons">
+          {type === "Admin" ? (<div className="AdminButtons">
             <AdminButton />
-          </div>
+          </div>) : (
+            <div className="FacultyButtons">
+              <FacultyButton />
+            </div>
+          )}
+
         </div>
         
 

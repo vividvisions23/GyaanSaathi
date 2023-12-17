@@ -23,8 +23,6 @@ const EditFaculty = ({ title, type }) => {
     id = location.pathname.split("/")[2];
 
   const { data } = useFetch(`/faculties/${id}`)
-  const courses = useFetch('/courses').data;
-  const [deptCourse, setDeptCourse] = useState([]);
   const [info, setInfo] = useState({});
   const [file, setFile] = useState("");
   const [sending, setSending] = useState(false)
@@ -34,9 +32,6 @@ const EditFaculty = ({ title, type }) => {
     setInfo(data)
   }, [data])
 
-  useEffect(() => {
-    setDeptCourse(courses.filter((c) => data.department === c.department))
-  })
 
 
   const navigate = useNavigate();
@@ -161,8 +156,8 @@ const EditFaculty = ({ title, type }) => {
                   onChange={handleChange}
                   type="text"
                   placeholder="Enter name"
-                  id="name"
-                  value={info.name}
+                  id="teachername"
+                  value={info.teachername}
                 />
               </div>
 
@@ -210,21 +205,6 @@ const EditFaculty = ({ title, type }) => {
                 />
               </div>
 
-              {type==="Admin" && <div className="formInput">
-              <label>Department</label>
-                <select
-                  id="department"
-                  onChange={handleChange}
-                  value={info.department}
-                >
-                  {
-                    departments.map((d) => (
-                      <option value={d.name} key={d._id}>{d.name}</option>
-                    ))
-                  }
-                </select>
-              </div>}
-
               <div className="formInput">
                 <label>Joining Year</label>
                 <input
@@ -235,39 +215,6 @@ const EditFaculty = ({ title, type }) => {
                   value={info.joiningYear}
                 />
               </div>
-
-              {type==="Admin" && <div className="formInput">
-                <label>Designation</label>
-                <select
-                  id="designation"
-                  onChange={handleChange}
-                  value={info.designation}
-                >
-                  <option value={"none"}>none</option>
-                  <option value={"PHD Scholar"}>PHD Scholar</option>
-                  <option value={"Assistant Professor"}>Assistant Professor</option>
-                  <option value={"Professor"}>Professor</option>
-                  <option value={"Doctor"}>Doctor</option>
-                </select>
-              </div>}
-
-              {type==="Admin" && <div className="formInput">
-                <label>Course Taught</label>
-                <select
-                  id="subject"
-                  onChange={handleChange}
-                  value={info.subject}
-                >
-                  {
-                    deptCourse.map((course) => (
-                      <option value={course._id} onClick={() => setClasscode(course.classCode)}>{course.name}</option>
-                    ))
-                  }
-                  <option value={"none"}>none</option>
-                  
-                </select>
-              </div>}
-
 
             </form>
             <div className="submitButton">

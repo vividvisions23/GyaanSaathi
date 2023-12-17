@@ -44,6 +44,12 @@ const Button = () => {
             <p>Updates</p>
           </div>
         </Link>
+        <Link to="/admin/classes" style={{ textDecoration: "none", color: "black"  }}>
+          <div className="createButton">
+            <ControlPointDuplicateIcon className='icon' style={{color:"var(--pink)"}}/>
+            <p>Classes</p>
+          </div>
+        </Link>
         
         {/* <div className="createButton">
           <ControlPointDuplicateIcon className='icon' style={{color:"var(--blue)"}}/>

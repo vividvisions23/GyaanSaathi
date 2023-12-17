@@ -1,6 +1,6 @@
 export const facultyInputs = [
     {
-        id: "name",
+        id: "teachername",
         label: "Name",
         type: "text",
         placeholder: "Enter student's name",
