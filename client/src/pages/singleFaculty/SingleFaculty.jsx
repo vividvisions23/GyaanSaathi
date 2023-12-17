@@ -22,9 +22,8 @@ const Single = ({ type }) => {
     id = location.pathname.split("/")[3];
   const { data } = useFetch(`/faculties/${id}`)
 
-  const colors = ['var(--turquoise)', 'var(--pink)', 'var(--red)', 'var(--green)', 'var(--orange)']
+  const colors = ['var(--light-blue)', 'var(--light-pink)', 'var(-light-yellow)', 'var(light-green)', 'var(light-red)']
 
-  
   // used to navigate to a certain link
   const navigate = useNavigate();
 
@@ -109,7 +108,7 @@ const Single = ({ type }) => {
             <h2 className="cTitle">Classes</h2>
             <div className="classesContainer">
               {data?.classesTaught?.map((item, index) => (
-                <div className="classContainer" key={index} style={{ backgroundColor: colors[index % colors.length], color: "white"}}>
+                <div className="classContainer" key={index} style={{ backgroundColor: colors[index % colors.length]}}>
                   {item.name} Standard
                 </div>
               ))}

@@ -1,16 +1,18 @@
 import "../../style/form.scss";
-
+import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import useFetch from "../../hooks/useFetch";
 import axios from "axios";
-import { departments, semesters } from "../../source/formsource/arrays";
 import AdminNavbar from "../../components/adminNavbar/AdminNavbar";
 
 const NewCourse = ({ inputs, title }) => {
 
   const [info, setInfo] = useState({});
-  
+  const [file, setFile] = useState("");
+  const classes = useFetch('/classes').data
+  classes.sort((a, b) => a.classNumber - b.classNumber)
+
   const navigate = useNavigate();
   
   const handleChange = (e) => {
@@ -21,17 +23,44 @@ const NewCourse = ({ inputs, title }) => {
     const button = document.getElementsByClassName("form-btn")
     button.disabled = "true"
     e.preventDefault();
-    try {
-      const newcourse = {
-        ...info,
-      }
+    
+    if(file) {
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "upload");
 
-      await axios.post("http://localhost:5500/api/courses", newcourse, {
+      try {
+        const uploadRes = await axios.post( "https://api.cloudinary.com/v1_1/dnzkakna0/image/upload",
+        data, {
         withCredentials: false
-      });
-      navigate(-1)
-    } catch (err) {
-      console.log(err)
+      })
+      const {url} = uploadRes.data;
+      const {public_id} = uploadRes.data;
+        const newcourse = {
+          ...info, syllabusPicture: url, cloud_id: public_id
+        }
+  
+        await axios.post("http://localhost:5500/api/courses", newcourse, {
+          withCredentials: false
+        });
+        navigate(-1)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    else {
+      try {
+        const newcourse = {
+          ...info,
+        }
+  
+        await axios.post("http://localhost:5500/api/courses", newcourse, {
+          withCredentials: false
+        });
+        navigate(-1)
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 
@@ -47,6 +76,29 @@ const NewCourse = ({ inputs, title }) => {
         
         <div className="bottom">
           <div className="right">
+            <div className="left">
+
+          <img
+              src={
+                (file)
+                ? URL.createObjectURL(file)
+                : (info.profilePicture) ? info.profilePicture : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+              }
+              alt=""
+              />
+
+            <div className="formInput">
+                <label htmlFor="file">
+                  Image: <DriveFolderUploadIcon className="icon" />
+                </label>
+                <input
+                  type="file"
+                  id="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  style={{ display: "none" }}
+                />
+              </div>
+              </div>
             <form>
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
@@ -61,31 +113,16 @@ const NewCourse = ({ inputs, title }) => {
               ))}
 
             <div className="formInput">
-                <label>Choose Department</label>
-                <select id="department" onChange={handleChange}>
+                <label>Choose Class</label>
+                <select id="class" onChange={handleChange}>
                     <option value={"-"}> </option>
                     {
-                        departments.map((d) => (
-                        <option value={d.name} key={d.id}>{d.name}</option>
+                        classes?.map((c, index) => (
+                        <option value={c._id} key={index}>{c.name}</option>
                         ))
                     }
                 </select>
-            </div>
-
-            <div className="formInput">
-                <label>Semester</label>
-                <select
-                  id="semester"
-                  onChange={handleChange}
-                >
-                  <option value={0}>-</option>
-                  {
-                    semesters.map((s) => (
-                      <option value={s.id} key={s.id}>{s.name}</option>
-                    ))
-                  }
-                </select>
-            </div>     
+            </div>  
 
             </form>
             <div className="submitButton">

@@ -7,8 +7,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import axios from "axios";
 import useFetch from "../../hooks/useFetch";
-import Navbar from "../../components/navbar/Navbar";
-
+import AdminNavbar from "../../components/adminNavbar/AdminNavbar";
 const EditCourse = ({ title }) => {
   
   // get location and extract id out of it
@@ -81,7 +80,7 @@ const EditCourse = ({ title }) => {
     <div className="new">
 
       <div className="newContainer">
-        <Navbar />
+        <AdminNavbar />
 
         {/* Title of form */}
         <div className="top">
@@ -135,22 +134,6 @@ const EditCourse = ({ title }) => {
                   placeholder="Add unique code of subject"
                 />
               </div>
-
-              {/* <div className="formInput">
-                <label>Department</label>
-                <select
-                  id="department"
-                  onChange={handleChange}
-                  value={info.department}
-                >
-                  <option value={"-"}> </option>
-                  {
-                    departments.map((d) => (
-                      <option value={d.name} key={d.id}>{d.name}</option>
-                    ))
-                  }
-                </select>
-              </div> */}
 
             </form>
 
