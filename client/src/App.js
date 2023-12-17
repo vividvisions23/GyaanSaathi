@@ -62,6 +62,7 @@ import EditFaculty from './pages/faculty/EditFaculty';
 import NewTimeTable from "./pages/timetable/NewTimeTable";
 import Class from "./pages/class/Class";
 import AddClass from "./pages/class/AddClass";
+import ViewClass from "./pages/class/ViewClass";
 
 
 function App() {
@@ -362,6 +363,17 @@ function App() {
             <RequireAdmin>
               <RequireAuth>
                 <AddClass />
+              </RequireAuth>
+            </RequireAdmin>
+          }
+        />
+
+        {/* view class */}
+        <Route 
+          path="/admin/classes/:classId" element={
+            <RequireAdmin>
+              <RequireAuth>
+                <ViewClass />
               </RequireAuth>
             </RequireAdmin>
           }

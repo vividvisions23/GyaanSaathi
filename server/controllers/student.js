@@ -127,6 +127,11 @@ export const deleteStudent = async (req, res, next) => {
         populate: {
           path: 'subjects',
           model: 'Course',
+          populate: {
+            path: 'teacher',
+            model: 'Faculty',
+            select: 'teachername'
+          }
         },
       })
       .exec();

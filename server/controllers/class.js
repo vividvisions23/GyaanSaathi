@@ -48,10 +48,28 @@ export const deleteClass = async (req, res, next) => {
     }
 };
 
-export const getClass = async (req, res, next) => {
+export const getClassDetails = async (req, res, next) => {
+    const classId = req.params.id;
+
     try {
-        const sclass = await Class.findById(req.params.id);
-        res.status(200).json(sclass);
+        const classDetails = await Class.findById(classId)
+        .populate({
+            path: 'subjects',
+            model: 'Course',
+            select: 'name subjectCode teacher',
+            populate: {
+            path: 'teacher',
+            model: 'Faculty',
+            select: 'teachername', // Only fetch the name field of the teacher
+            },
+        })
+        .populate({
+            path: 'students',
+            model: 'Student',
+            select: 'name profilePicture cloud_id gender enroll',
+        });
+
+        res.status(200).json(classDetails);
     } catch (err) {
         next(err);
     }

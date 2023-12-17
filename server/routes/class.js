@@ -2,7 +2,7 @@ import express from "express";
 import {
   createClass,
   deleteClass,
-  getClass,
+  getClassDetails,
   getClasses,
   updateClass,
   getClassesWithSubjects
@@ -14,7 +14,7 @@ router.post("/", createClass);
 router.put("/:id", updateClass);
 router.delete("/:id", deleteClass);
 router.get("/courses", getClassesWithSubjects)
-router.get("/:id", getClass);
+router.get("/:id", getClassDetails);
 router.get("/", getClasses);
 
 export default router;
