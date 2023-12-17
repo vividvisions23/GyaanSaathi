@@ -21,8 +21,8 @@ import { taskColumns } from "./source/datatablesource/taskColumns";
 import { updateColumns } from "./source/datatablesource/updateColumns";
 import { queryColumns } from "./source/datatablesource/queryColumns";
 import { courseColumns } from "./source/datatablesource/courseColumns";
-
-
+import FacultyHome from "./pages/home/FacultyHome";
+import StudentHome from "./pages/home/StudentHome";
 // Form Inputs
 import { studentInputs } from "./source/formsource/studentInputs"
 import { taskInputs } from "./source/formsource/taskInputs"
@@ -599,7 +599,12 @@ function App() {
           </RequireAuth>
         } />
 
+        {/* Route for the FacultyHome component */}
+        <Route path="/faculty" element={<FacultyHome type="faculty" />} />
+        <Route path="/student" element={<StudentHome type="student" />} />
+
         </Routes>
+        
       </BrowserRouter>
 
     </div>
