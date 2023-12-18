@@ -7,6 +7,7 @@ import {
   getFaculty,
   getFacultys,
   getFacultyClasses,
+  getFacultyCourses,
   facultyAttendance,
   AddNewCourse,
 } from "../controllers/faculty.js";
@@ -20,7 +21,9 @@ router.delete("/:id", deleteFaculty);
 router.get("/:id", getFaculty);
 router.get("/", getFacultys);
 router.get("/classes/:id", getFacultyClasses);
+router.get("/courses/:id", getFacultyCourses);
 router.post('/facultyAttendance/:id', facultyAttendance);
 router.patch('/addCourse/:facId/:classId/:courseId', AddNewCourse);
 
 export default router;
+

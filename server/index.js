@@ -19,6 +19,8 @@ import timetableRoute from "./routes/timetable.js"
 import testRoute from "./routes/test.js"
 import classRoute from "./routes/class.js"
 import countAllRoute from "./routes/countDocuments.js"
+import feedbackRoute from "./routes/feedback.js";
+import resultRoute from ".//routes/result.js"; 
 
 
 //config and middlewares
@@ -79,6 +81,8 @@ app.use("/api/timetables", timetableRoute);
 app.use("/api/tests", testRoute);
 app.use("/api/classes", classRoute);
 app.use("/api", countAllRoute)
+app.use("/api/feedback", feedbackRoute)
+app.use("/api/result", resultRoute);
 
 
 //listen on port

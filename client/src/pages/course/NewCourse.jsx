@@ -118,7 +118,9 @@ const NewCourse = ({ inputs, title }) => {
                     <option value={"-"}> </option>
                     {
                         classes?.map((c, index) => (
-                        <option value={c._id} key={index}>{c.name}</option>
+                        <option value={c._id} key={index}>
+                          {c.name}
+                        </option>
                         ))
                     }
                 </select>
