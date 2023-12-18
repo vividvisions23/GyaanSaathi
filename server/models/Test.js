@@ -2,6 +2,15 @@ import mongoose from "mongoose";
 
 const TestSchema = new mongoose.Schema(
     {
+        name: {
+            type: String, 
+            required: true
+        },
+        subject_id: {
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Course', 
+            required: false
+        },
         syllabus: {
             type: String,
             required: true
