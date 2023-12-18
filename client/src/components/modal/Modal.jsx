@@ -6,7 +6,6 @@ import { useState } from "react";
 import axios from "axios";
 
 
-
 // setOpen prop, id is the id of the data we need to display and type will tell whether it's task or update
 
 const Modal = ({ setOpen, id, type }) => {
@@ -20,6 +19,7 @@ const Modal = ({ setOpen, id, type }) => {
     const handleChange = (e) => {
         setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
     }
+
 
     // post the usestate to database
     const handleClick = async (e) => {
@@ -66,7 +66,8 @@ const Modal = ({ setOpen, id, type }) => {
                         <div className="mTitle">{data.title}</div>
                         <div className="mDesc">{data.desc}</div>
                         <p><span>Deadline</span> : {data.deadline}</p>
-                        <p><span>Assigned To</span> : {data.assignedTo}</p>
+                        <p><span>Assigned To</span> : {data.sclass?.name}</p>
+                        <p><span>Assigned By</span>: {data.author}</p>
                         {/* <button className="mButton">
                             Mark
                         </button> */}
@@ -98,14 +99,11 @@ const Modal = ({ setOpen, id, type }) => {
                 {
                     type === "courses" &&
                     <div className="mTasks">
-                        <div className="mTitle">{data.name}</div>
-                        <div className="mDesc">{data.subjectCode}</div>
-                        <p>{data.credits} Credits</p>
-                        <p><span>Department</span> : {data.department}</p>
-                        <p><span>Semester</span> : {data.semester}</p>
-                        {/* <button className="mButton">
-                            Mark
-                        </button> */}
+                        <div className="mTitle">{data?.subjectCode} {data?.name}</div>
+                        {data.syllabusPicture && <img className="syll" src={data.syllabusPicture} alt="syllabus picture"/>}
+                        {data.teacher && <p><span>Taught by</span> : {data?.teacher?.teachername}</p>}
+                        <p><span>Semester</span> : {data?.class?.name}</p>
+                        
                     </div>
                 }
             </div>

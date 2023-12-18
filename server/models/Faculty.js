@@ -67,6 +67,12 @@ const FacultySchema = new mongoose.Schema(
         ref: 'Course',
       },
     ],
+    classesTaught: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Class',
+      },
+    ],
     attendance: [
       {
         date: {

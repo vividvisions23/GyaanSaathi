@@ -19,24 +19,36 @@
     }
   }
 
-  .datatableTitle {
-    width: 100%;
-    font-size: 24px;
-    color: gray;
-    margin-bottom: 10px;
+  .datatableHeader {
     display: flex;
-    align-items: center;
     justify-content: space-between;
 
+    .datatableTitle {
+      width: 100%;
+      font-size: 24px;
+      color: gray;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  
+    }
+    
     .link {
       text-decoration: none;
       color: green;
+      height: fit-content;
       font-size: 16px;
       font-weight: 400;
       border: 1px solid green;
       padding: 5px;
       border-radius: 5px;
       cursor: pointer;
+      transition: all ease-in-out 0.3s;
+
+      &:hover {
+        background-color: var(--light-green);
+      }
     }
   }
 
@@ -84,6 +96,10 @@
       color: darkblue;
       border: 1px dotted rgba(0, 0, 139, 0.596);
       cursor: pointer;
+
+      &:hover {
+        background-color: var(--light-blue);
+      }
     }
 
     .deleteButton {
@@ -92,6 +108,10 @@
       color: crimson;
       border: 1px dotted rgba(220, 20, 60, 0.6);
       cursor: pointer;
+
+      &:hover {
+        background-color: var(--light-red);
+      }
     }
   }
 }

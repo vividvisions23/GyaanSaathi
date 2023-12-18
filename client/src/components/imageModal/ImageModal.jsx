@@ -15,7 +15,7 @@ const ImageModal = ({ imageUrl, setModalOpen }) => {
                     onClick={() => setModalOpen(false)}
                 />
 
-                <img src={imageUrl} alt="" />
+                {imageUrl ? (<img src={imageUrl} alt="" />):(<div>Image does not exist currently</div>)}
             </div>
         </div>
   );

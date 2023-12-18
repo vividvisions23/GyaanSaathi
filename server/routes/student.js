@@ -6,6 +6,7 @@ import {
   deleteStudent,
   getStudent,
   getStudents,
+  getSingleStudent,
   clearAllStudentsAttendanceBySubject,
   clearAllStudentsAttendance,
   removeStudentAttendanceBySubject,
@@ -20,6 +21,7 @@ router.post("/loginStudent", loginStudent);
 router.put("/:id", updateStudent);
 router.delete("/:id", deleteStudent);
 router.get("/:id", getStudent);
+router.get("/single/:id", getSingleStudent);
 router.get("/", getStudents);
 router.put('/StudentAttendance/:id', studentAttendance)
 router.put('/ClearAllStudentsSubAtten/:id', clearAllStudentsAttendanceBySubject);

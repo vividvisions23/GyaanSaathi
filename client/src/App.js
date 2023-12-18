@@ -60,6 +60,9 @@ import Landing from "./pages/Landing/Landing";
 import EditStudent from './pages/student/EditStudent';
 import EditFaculty from './pages/faculty/EditFaculty';
 import NewTimeTable from "./pages/timetable/NewTimeTable";
+import Class from "./pages/class/Class";
+import AddClass from "./pages/class/AddClass";
+import ViewClass from "./pages/class/ViewClass";
 
 
 function App() {
@@ -335,7 +338,7 @@ function App() {
           path="/admin/classes" element={
             <RequireAdmin>
               <RequireAuth>
-                {/* <List column={classColumns} name="Class" type="Admin"/> */}
+                <Class />
               </RequireAuth>
             </RequireAdmin>
           }
@@ -356,10 +359,21 @@ function App() {
         {/* edit classes */}
 
         <Route 
-          path="/admin/classes/:classId/edit" element={
+          path="/admin/faculties/:facId/addCourse" element={
             <RequireAdmin>
               <RequireAuth>
-                {/* <EditCourse title="Edit Classes" type="Admin"/> */}
+                <AddClass />
+              </RequireAuth>
+            </RequireAdmin>
+          }
+        />
+
+        {/* view class */}
+        <Route 
+          path="/admin/classes/:classId" element={
+            <RequireAdmin>
+              <RequireAuth>
+                <ViewClass />
               </RequireAuth>
             </RequireAdmin>
           }

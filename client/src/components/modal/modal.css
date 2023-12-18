@@ -11,6 +11,16 @@
     text-align: center;
 }
 
+.mTasks .syll {
+    height: 500px;
+}
+
+@media screen and (max-width: 600px) {
+    .mTasks .syll {
+        height: 300px;
+    }
+}
+
 .mContainer {
     display: flex;
     flex-direction: column;

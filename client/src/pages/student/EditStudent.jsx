@@ -8,7 +8,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios"
 
-import { departments, semesters} from "../../source/formsource/arrays";
 import Navbar from "../../components/navbar/Navbar";
 import AdminNavbar from "../../components/adminNavbar/AdminNavbar";
 
@@ -21,10 +20,11 @@ const EditUser = ({ title, type }) => {
   else
     id = location.pathname.split("/")[2];
 
-  const { data } = useFetch(`/students/${id}`)
+  const { data } = useFetch(`/students/single/${id}`)
+  const classes = useFetch('/classes').data
+
   const [info, setInfo] = useState({});
   const [file, setFile] = useState("");
-  const [year, setYear] = useState(0);
   const [sending, setSending] = useState(false)
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const EditUser = ({ title, type }) => {
         const { url } = uploadRes.data;
         const { public_id } = uploadRes.data;
         const newuser = {
-          ...info, profilePicture: url, cloud_id: public_id, year: year
+          ...info, profilePicture: url, cloud_id: public_id
         }
 
         axios.put(`http://localhost:5500/api/students/${id}`, newuser, {
@@ -77,6 +77,8 @@ const EditUser = ({ title, type }) => {
       }
     }
   }
+
+  console.log(info)
 
 
   return (
@@ -142,7 +144,6 @@ const EditUser = ({ title, type }) => {
                   onChange={handleChange}
                   value={info.gender}
                 >
-                  <option value={0}>-</option>
                   <option value={"Female"}>Female</option>
                   <option value={"Male"}>Male</option>
                 </select>
@@ -204,48 +205,19 @@ const EditUser = ({ title, type }) => {
               </div>
 
               {type==="Admin" && <div className="formInput">
-                <label>Department</label>
+                <label>Class</label>
                 <select
-                  id="department"
+                  id="class"
                   onChange={handleChange}
-                  value={info.department}
+                  value={info.class?.name}
                 >
-                  <option value={"-"}> </option>
                   {
-                    departments.map((d) => (
-                      <option value={d.name} key={d.id}>{d.name}</option>
+                    classes.map((d, index) => (
+                      <option value={d._id} key={index}>{d.name}</option>
                     ))
                   }
                 </select>
               </div>}
-
-              {type === "Admin" && <div className="formInput">
-                <label>Section</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="Enter student's section"
-                  id="section"
-                  value={info.section}
-                />
-              </div>}
-
-              <div className="formInput">
-                <label>Semester</label>
-                <select
-                  id="semester"
-                  onChange={handleChange}
-                  value={info.semester}
-                >
-                  <option value={0}>-</option>
-                  {
-                    semesters.map((s) => (
-                      <option value={s.id} key={s.id} onClick={() => setYear(s.year)}>{s.name}</option>
-                    ))
-                  }
-                </select>
-              </div>
-
 
             </form>
 

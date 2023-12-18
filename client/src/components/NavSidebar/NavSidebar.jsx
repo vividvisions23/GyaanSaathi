@@ -17,7 +17,10 @@ import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
 import MarkChatReadIcon from '@mui/icons-material/MarkChatRead';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
-
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import AddchartIcon from '@mui/icons-material/Addchart';
+import QueuePlayNextIcon from '@mui/icons-material/QueuePlayNext';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -103,6 +106,35 @@ const NavSidebar = ({ setOpen }) => {
                             <span>Tests</span>
                         </li>
                     </Link>}
+
+                    {(user.isFaculty) && <Link to="" style={{ textDecoration: "none" }}>
+                        <li>
+                            <PlaylistAddIcon className="icon" />
+                            <span>Attendance</span>
+                        </li>
+                    </Link>}
+
+                    {(user.isFaculty) && <Link to="" style={{ textDecoration: "none" }}>
+                        <li>
+                            <AddchartIcon className="icon" />
+                            <span>Marks</span>
+                        </li>
+                    </Link>}
+
+                    {(user.isFaculty) && <Link to="" style={{ textDecoration: "none" }}>
+                        <li>
+                            <PostAddIcon className="icon" />
+                            <span>Material</span>
+                        </li>
+                    </Link>}
+
+                    {(user.isFaculty) && <Link to="" style={{ textDecoration: "none" }}>
+                        <li>
+                            <QueuePlayNextIcon className="icon" />
+                            <span>Videos</span>
+                        </li>
+                    </Link>}
+                    
 
                     {(user.isFaculty || (user.isStudent && user.isCR)) && <Link to="/updates/cr/new" style={{ textDecoration: "none" }}>
                         <li>

@@ -1,11 +1,24 @@
 import Course from "../models/Course.js";
-
+import Class from "../models/Class.js";
 
 export const createCourse = async (req, res, next) => {
 
 
   const newCourse = new Course(req.body);
+  
   try {
+
+    // add course to courses array in class
+    try{
+      await Class.updateOne(
+        {_id: newCourse.class},
+        {$addToSet: {subjects: newCourse._id}}
+      )
+    }
+    catch (err) {
+      next(err)
+    }
+
     const savedCourse = await newCourse.save();
     res.status(200).json(savedCourse);
   } catch (err) {
@@ -28,8 +41,21 @@ export const updateCourse = async (req, res, next) => {
 };
 
 export const deleteCourse = async (req, res, next) => {
+  const course = await Course.findById(req.params.id)
+
+  if(!course) {
+    return res.status(404).json({message: "Course not found"})
+  }
+
   try {
-    await Course.findByIdAndDelete(req.params.id);
+    try {
+      await Class.findByIdAndUpdate(course.class, {$pull: {subjects: req.params.id}})
+    }
+    catch(err) {
+
+    }
+
+    await course.remove();
     res.status(200).json("the Course has been deleted");
   } catch (err) {
     next(err);
@@ -41,16 +67,7 @@ export const getCourse = async (req, res, next) => {
     const course = await Course.findById(req.params.id)
       .populate('class', 'name')
       .populate('teacher', 'teachername');
-
-    if (course && course.class) {
-      // Transform the data before sending it in the response
-      const { class: { name, ...classInfo }, ...rest } = course.toObject();
-      const { teacher: {teachername, ...teacherInfo}, ...teacherrest} = course.toObject();
-      const transformedCourse = { ...rest, classname: name, teacher: teachername, classInfo };
-
-      res.status(200).json(transformedCourse);
-    }
-    else 
+    
       res.status(200).json(course)
   } catch (err) {
     next(err);
@@ -72,16 +89,18 @@ export const getCourses = async (req, res, next) => {
     const courses = await Course.find()
       .populate('class', 'name')
       .populate('teacher', 'teachername');
-    const transformedCourses = courses.map(course => {
-      const { class: { name, ...classInfo }, ...rest } = course.toObject();
-      const {teacher: {teachername, ...teacherInfo}, ...teacherrest} = course.toObject();
-
-      if(course.teacher)
-        return { ...rest, classname: name, teachername: teachername, classInfo };
-      else 
-        return {...rest, classname: name, classInfo};
+      const transformedCourses = courses.map(course => {
+        const { class: { name, ...classInfo }, teacher, ...rest } = course.toObject();
       
-    });
+        let transformedCourse;
+        if (teacher && teacher.teachername) {
+          transformedCourse = { ...rest, classname: name, teachername: teacher.teachername, classInfo };
+        } else {
+          transformedCourse = { ...rest, classname: name, classInfo };
+        }
+      
+        return transformedCourse;
+      });
     res.status(200).json(transformedCourses);
   } catch (err) {
     next(err)

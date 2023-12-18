@@ -16,7 +16,7 @@ export const courseColumns = [
     },
     {
         field: "teachername",
-        headerName: "Teacher",
+        headerName: "Class",
         width: 200,
-    },
+    }
 ];

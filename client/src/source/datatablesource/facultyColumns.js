@@ -13,7 +13,7 @@ export const facultyColumns = [
         },
     },
     {
-        field: "name",
+        field: "teachername",
         headerName: "Name",
         width: 100,
     },
@@ -33,18 +33,8 @@ export const facultyColumns = [
         width: 100,
     },
     {
-        field: "department",
-        headerName: "Department",
-        width: 100,
-    },
-    {
         field: "joiningYear",
         headerName: "Joining",
-        width: 100,
-    },
-    {
-        field: "designation",
-        headerName: "Designation",
         width: 100,
     },
     {

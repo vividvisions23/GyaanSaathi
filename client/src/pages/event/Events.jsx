@@ -51,7 +51,6 @@ const Events = () => {
         setEvents([...e1, ...e2]);
     }, [tasks, tests])
 
-    console.log(events)
     const handleEventPopup = (e) => {
         if (e.target.className === "rbc-event-content") {
             const event = tasks.filter((item) => { return item["title"] === e.target.title }
