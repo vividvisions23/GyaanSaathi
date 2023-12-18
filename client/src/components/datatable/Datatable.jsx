@@ -148,11 +148,11 @@ const Datatable = ({ column, name, type }) => {
         <div className="datatableTitle">
         {name}
         </div>
-        <Link to={`/admin/${path}/new`} style={{"textDecoration": "none"}}>
+        {(type === "Admin" || type==="Creator" )&& <Link to={`new`} style={{"textDecoration": "none"}}>
           <div className="link">
             Create
           </div>
-        </Link>
+        </Link>}
       </div>
 
       {/* Datagrid element */}

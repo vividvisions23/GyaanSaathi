@@ -20,6 +20,7 @@ const Modal = ({ setOpen, id, type }) => {
         setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
     }
 
+    console.log(data)
 
     // post the usestate to database
     const handleClick = async (e) => {
@@ -53,9 +54,6 @@ const Modal = ({ setOpen, id, type }) => {
                     <div className="mUpdates">
                         <div className="mTitle">{data.title}</div>
                         <div className="mDesc">{data.desc}</div>
-                        {/* <button className="mButton">
-                            Mark
-                        </button> */}
                     </div>
                 }
 
@@ -65,12 +63,9 @@ const Modal = ({ setOpen, id, type }) => {
                     <div className="mTasks">
                         <div className="mTitle">{data.title}</div>
                         <div className="mDesc">{data.desc}</div>
-                        <p><span>Deadline</span> : {data.deadline}</p>
-                        <p><span>Assigned To</span> : {data.sclass?.name}</p>
-                        <p><span>Assigned By</span>: {data.author}</p>
-                        {/* <button className="mButton">
-                            Mark
-                        </button> */}
+                        <p><span>Deadline</span> : {new Date(data.deadline).toLocaleDateString()}</p>
+                        <p><span>Assigned To</span> : {data?.sclass?.name}</p>
+                        <p><span>Assigned By</span>: {data?.author?.teachername}</p>
                     </div>
                 }
 

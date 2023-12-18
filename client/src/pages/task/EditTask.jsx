@@ -39,7 +39,7 @@ const EditTask = ({ title }) => {
     try {
 
       const editTask = {
-        ...info, deadline: deadline, sclass: sclass 
+        ...info, deadline: deadline, sclass: sclass,  
       }
       await axios.put(`http://localhost:5500/api/tasks/${id}`, editTask, {
         withCredentials: false
@@ -95,6 +95,7 @@ const EditTask = ({ title }) => {
                 <label>Choose a Class</label>
                 <select
                   onChange={(e) => setSclass(e.target.value)}
+                  value={info?.sclass?.name}
                   id="classId">
                     {
                       classes && classes.length > 0 &&

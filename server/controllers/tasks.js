@@ -35,7 +35,7 @@ export const deleteTask = async (req, res, next) => {
 
 export const getTask = async (req, res, next) => {
   try {
-    const task = await Task.findById(req.params.id).populate('sclass', 'name');
+    const task = await Task.findById(req.params.id).populate('sclass', 'name').populate('author', 'teachername');
     res.status(200).json(task);
   } catch (err) {
     next(err);
@@ -52,9 +52,11 @@ export const getSingleTask = async (req, res, next) => {
   }
 };
 
-export const getTasks = async (req, res, next) => {
+export const getFacultyTasks = async (req, res, next) => {
+  const facultyId = req.params.id;
+  
   try {
-    const tasks = await Task.find();
+    const tasks = await Task.find({ author: facultyId });
     res.status(200).json(tasks);
   } catch (err) {
     next(err)

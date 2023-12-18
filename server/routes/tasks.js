@@ -4,8 +4,8 @@ import {
   deleteTask,
   getTask,
   getSingleTask,
-  getTasks,
   updateTask,
+  getFacultyTasks,
 } from "../controllers/tasks.js";
 import { verifyUser } from "../utils/verifyToken.js";
 
@@ -16,6 +16,6 @@ router.put("/:id", updateTask);
 router.delete("/:id", deleteTask);
 router.get("/:id", getTask);
 router.get("/single/:id", getSingleTask);
-router.get("/", getTasks);
+router.get("/faculty/:id", getFacultyTasks);
 
 export default router;

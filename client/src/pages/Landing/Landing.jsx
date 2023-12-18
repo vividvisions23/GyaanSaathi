@@ -6,7 +6,8 @@ const Landing = () => {
   return (
     
     <div className="landing-container">
-      <h1>Classroom Portal</h1>
+      {/* <img src="/Assets/brand.png" alt="" style={{height: "100px"}} /> */}
+      <h1>Edu-Sangam</h1>
       <img src="https://drive.google.com/uc?id=1iJm3OOABf3ZaIs59VlHCGAiaBFWEuclR" alt="" />
       <div className="button-container">
         

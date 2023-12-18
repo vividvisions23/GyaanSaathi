@@ -18,9 +18,9 @@ const Home = ({ type }) => {
         {(type === "Admin") ? (<AdminNavbar />) : (<Navbar />)}
 
         <div className="welcome">
-          <img src="https://drive.google.com/uc?id=1ReJV_kcqYaIuxt6ot-LXFYHcuJXtwJxx" alt="" />
+          <img src="/Assets/brand.png" alt="" />
           <div className="text">
-            <h1>Welcome to Gyaan Saathi</h1>
+            <h1>Welcome to Edu-Sangam</h1>
             <p>Providing seamless navigation for your learning via our portal</p>
           </div>
         </div>
