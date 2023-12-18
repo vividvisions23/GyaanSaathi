@@ -3,7 +3,7 @@ import Class from "../models/Class.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
-
+import Course from "../models/Course.js"; 
 
 export const registerStudent = async (req, res, next) => {
   try {
@@ -177,7 +177,11 @@ export const getSingleStudent = async (req, res, next) => {
   }
 
   export const studentAttendance = async (req, res, next) => {
-    const { subName, status, date } = req.body;
+    //check the accessing of 0th element for now check for future; 
+    const { atten_date, status, sub_id } = req.body.attendance[0];
+    // const dateObj = new Date(date); 
+    // const formattedDate = dateObj.toISOString().split('T')[0];
+    
   
     try {
       const student = await Student.findById(req.params.id);
@@ -186,27 +190,25 @@ export const getSingleStudent = async (req, res, next) => {
         return res.send({ message: 'Student not found' });
       }
   
-      const subject = await Subject.findById(subName);
+      const subject = await Course.findById(sub_id);
   
       const existingAttendance = student.attendance.find(
-        (a) =>
-          a.date.toDateString() === new Date(date).toDateString() &&
-          a.subName.toString() === subName
+        (a) =>    
+          // a.date.toDateString() === new Date(date).toDateString() &&
+          a.atten_date.toString() === atten_date &&
+          a.sub_id.toString() === sub_id
+          // a.subName.toString() === subName
       );
   
       if (existingAttendance) {
         existingAttendance.status = status;
       } else {
         // Check if the student has already attended the maximum number of sessions
-        const attendedSessions = student.attendance.filter(
-          (a) => a.subName.toString() === subName
-        ).length;
+        // const attendedSessions = student.attendance.filter(
+        //   (a) => a.sub_id.toString() === sub_id
+        // ).length;
   
-        if (attendedSessions >= subject.sessions) {
-          return res.send({ message: 'Maximum attendance limit reached' });
-        }
-  
-        student.attendance.push({ date, status, subName });
+        student.attendance.addToSet({ atten_date, status, sub_id });
       }
   
       const result = await student.save();
@@ -221,7 +223,7 @@ export const getSingleStudent = async (req, res, next) => {
   
     try {
       const result = await Student.updateMany(
-        { 'attendance.subName': subName },
+        { 'attendance.sub_id': subName },
         { $pull: { attendance: { subName } } }
       );
       return res.send(result);
@@ -247,7 +249,7 @@ export const getSingleStudent = async (req, res, next) => {
   
   export const removeStudentAttendanceBySubject = async (req, res, next) => {
     const studentId = req.params.id;
-    const subName = req.body.subId;
+    const subName = req.body.sub_id;
   
     try {
       const result = await Student.updateOne(
