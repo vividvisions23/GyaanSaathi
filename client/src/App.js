@@ -454,7 +454,7 @@ function App() {
         } />
 
         {/* tasks page student side */}
-        <Route path="/tasks" element={
+        <Route path="/stuTasks" element={
             <RequireAuth>
               <RequireStudent>
                 < List column={taskColumns} type="Main" name="Task" />
@@ -466,7 +466,7 @@ function App() {
         {/* routes for tasks faculty side */}
 
         {/* list of tasks */}
-        <Route path="/tasks/cr" element={
+        <Route path="/facTasks" element={
             <RequireAuth>
               <RequireFaculty>
                 <List column={taskColumns} name="Task" type="Creator" />
@@ -475,7 +475,7 @@ function App() {
         } />
 
         {/* edit page for tasks */}
-        <Route path="/tasks/cr/:taskId/edit" element={
+        <Route path="/facTasks/:taskId/edit" element={
             <RequireAuth>
               <RequireFaculty>
                 <EditTask title="Update Task" />
@@ -484,7 +484,7 @@ function App() {
         } />
 
         {/* create task page */}
-        <Route path="/tasks/cr/new" element={
+        <Route path="/facTasks/new" element={
             <RequireAuth>
               <RequireFaculty>
                 <NewTask inputs={taskInputs} title="Add New Task" />

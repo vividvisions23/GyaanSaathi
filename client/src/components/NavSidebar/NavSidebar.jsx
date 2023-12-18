@@ -75,7 +75,7 @@ const NavSidebar = ({ setOpen }) => {
                     </Link>
 
                     {/* Takes you to list of all tasks created by admin */}
-                    <Link to={user.isFaculty? "/tasks/cr" : "tasks"} style={{ textDecoration: "none" }}>
+                    <Link to={user.isFaculty? "/facTasks" : "/stuTasks"} style={{ textDecoration: "none" }}>
                         <li>
                             <TaskIcon className="icon" />
                             <span>Tasks</span>
@@ -93,7 +93,7 @@ const NavSidebar = ({ setOpen }) => {
                     {/* Create events/queries */}
                     <p className="title">Create</p>
 
-                    {(user.isFaculty) && <Link to="/tasks/cr/new" style={{ textDecoration: "none" }}>
+                    {(user.isFaculty) && <Link to="/facTasks/new" style={{ textDecoration: "none" }}>
                         <li>
                             <AddTaskIcon className="icon" />
                             <span>Tasks</span>
@@ -136,7 +136,7 @@ const NavSidebar = ({ setOpen }) => {
                     </Link>}
                     
 
-                    {(user.isFaculty || (user.isStudent && user.isCR)) && <Link to="/updates/cr/new" style={{ textDecoration: "none" }}>
+                    {(user.isFaculty) && <Link to="/updates/cr/new" style={{ textDecoration: "none" }}>
                         <li>
                             <NotificationAddIcon className="icon" />
                             <span>Updates</span>

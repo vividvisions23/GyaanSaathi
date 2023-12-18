@@ -4,6 +4,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import useFetch from "../../hooks/useFetch"
 import { useState } from "react";
 import axios from "axios";
+import { getModalURL } from "../../source/endpoints/get";
 
 
 // setOpen prop, id is the id of the data we need to display and type will tell whether it's task or update
@@ -11,7 +12,7 @@ import axios from "axios";
 const Modal = ({ setOpen, id, type }) => {
 
     // fetch the required data
-    const { data } = useFetch(`/${type}/${id}`);
+    const { data } = useFetch(getModalURL(type, id));
 
     const [info, setInfo] = useState({});
 
@@ -20,7 +21,6 @@ const Modal = ({ setOpen, id, type }) => {
         setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
     }
 
-    console.log(data)
 
     // post the usestate to database
     const handleClick = async (e) => {
@@ -36,7 +36,6 @@ const Modal = ({ setOpen, id, type }) => {
             console.log(err)
         }
     }
-
 
     return (
         <div className="modal">
@@ -59,7 +58,7 @@ const Modal = ({ setOpen, id, type }) => {
 
                 {/* If type is tasks */}
                 {
-                    type === "tasks" &&
+                    (type === "facTasks" || type==="stuTasks" || type === 'tasks') &&
                     <div className="mTasks">
                         <div className="mTitle">{data.title}</div>
                         <div className="mDesc">{data.desc}</div>

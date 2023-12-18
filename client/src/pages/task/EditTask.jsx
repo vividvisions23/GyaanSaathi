@@ -12,14 +12,13 @@ const EditTask = ({ title }) => {
   
   // get location and extract id out of it
   const location = useLocation();
-  const id = location.pathname.split("/")[3];
+  const id = location.pathname.split("/")[2];
   const [info, setInfo] = useState({});
   const { user } = useContext(AuthContext)
   const classes = useFetch(`/faculties/classes/${user._id}`).data
   
-  const [deadline, setDeadline] = useState("");
-  // fetch data using id
-  const { data } = useFetch(`/tasks/single/${id}`)
+  const { data } = useFetch(`/tasks/${id}`)
+  const [deadline, setDeadline] = useState(new Date());
   const [sclass, setSclass] = useState("");
 
   const navigate = useNavigate();
@@ -37,11 +36,12 @@ const EditTask = ({ title }) => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-
-      const editTask = {
-        ...info, deadline: deadline, sclass: sclass,  
-      }
-      await axios.put(`http://localhost:5500/api/tasks/${id}`, editTask, {
+      if(deadline)
+        info.deadline = deadline
+      if(sclass)
+        info.sclass = sclass
+      
+      await axios.put(`http://localhost:5500/api/tasks/${id}`, info, {
         withCredentials: false
       });
 
@@ -50,7 +50,7 @@ const EditTask = ({ title }) => {
     } catch (err) {
       console.log(err)
     }
-  }
+  } 
 
 
   return (
@@ -95,12 +95,11 @@ const EditTask = ({ title }) => {
                 <label>Choose a Class</label>
                 <select
                   onChange={(e) => setSclass(e.target.value)}
-                  value={info?.sclass?.name}
                   id="classId">
                     {
                       classes && classes.length > 0 &&
                       classes.map((cl, index) => (
-                        <option key={index} value={cl._id}>{cl.name}</option>
+                        <option key={index} value={cl._id} selected={info?.sclass?._id === cl._id}>{cl.name}</option>
                         ))
                       }
                 </select>

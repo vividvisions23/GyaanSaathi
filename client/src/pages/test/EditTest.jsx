@@ -40,9 +40,7 @@ const NewTest = ({ title }) => {
       }
     } 
 
-    console.log(info)
-    console.log(start
-      )
+
  
   return (
 

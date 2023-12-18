@@ -16,7 +16,7 @@ import NavSidebar from "../NavSidebar/NavSidebar"
 
 const Navbar = () => {
 
-  const { Dispatch, darkMode } = useContext(DarkModeContext);
+  const { Dispatch} = useContext(DarkModeContext);
   const { user } = useContext(AuthContext)
   
   const updates = useFetch('/updates').data
@@ -102,13 +102,6 @@ const Navbar = () => {
                 <p>{item.desc.slice(0, 25)} ...</p>
               </li>
             ))}
-
-            {/* Takes to the page of all updates
-            <Link to={user.isStudent && user.isCR? "/updates/cr" : "/updates"} style={{ textDecoration: "none" }}>
-              <li id="more">
-                View all new updates
-              </li>
-            </Link> */}
           </ul>}
 
 

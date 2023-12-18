@@ -62,3 +62,14 @@ export const getFacultyTasks = async (req, res, next) => {
     next(err)
   }
 }
+
+export const getStudentTasks = async (req, res, next) => {
+  const classId = req.params.id;
+  
+  try {
+    const tasks = await Task.find({ sclass: classId });
+    res.status(200).json(tasks);
+  } catch (err) {
+    next(err)
+  }
+}

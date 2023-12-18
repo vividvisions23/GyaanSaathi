@@ -13,6 +13,7 @@ import useFetch from "../../hooks/useFetch.js"
 
 // Modal for showing the details about tasks and updates
 import Modal from "../../components/modal/Modal";
+import { getDatatableURL } from "../../source/endpoints/get.js";
 
 
 
@@ -35,8 +36,8 @@ const Datatable = ({ column, name, type }) => {
 
 
   // fetching data using the path
-  const { data } = useFetch(`/${path}`)
   const { user } = useContext(AuthContext)
+  const { data } = useFetch(getDatatableURL(path, user))
 
   // array usestate that gets fed every time page loads
   const [list, setList] = useState([]);

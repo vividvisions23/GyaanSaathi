@@ -35,14 +35,12 @@ const NewTask = ({ inputs, title }) => {
       await axios.post("http://localhost:5500/api/tasks", newtask, {
         withCredentials: false
       });
-      console.log(newtask)
       navigate(-1)
     } catch (err) {
       console.log(err)
     }
   }
 
-  // console.log(deadline)
 
 
   return (
