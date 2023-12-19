@@ -69,6 +69,8 @@ import ViewClass from "./pages/class/ViewClass";
 import { videoInputs } from "./source/formsource/videoInputs";
 
 
+import { getDeleteURL } from "./source/endpoints/delete";
+
 function App() {
   
   const { darkMode } = useContext(DarkModeContext);  
@@ -198,6 +200,8 @@ function App() {
             </RequireAdmin>
           </RequireAuth>
         } />
+
+        {/* view video student */}
 
 
 
@@ -516,7 +520,7 @@ function App() {
             </RequireAuth>
         } />
 
-        {/* create task page */}
+        {/* add video */}
         <Route path="/facTasks/new" element={
             <RequireAuth>
               <RequireFaculty>
@@ -525,6 +529,10 @@ function App() {
             </RequireAuth>
         } />
 
+        {/* delete video */}
+        
+
+        
         {/* updates page student side
         <Route path="/updates" element={
             <RequireAuth>
