@@ -20,7 +20,12 @@ import testRoute from "./routes/test.js"
 import classRoute from "./routes/class.js"
 import countAllRoute from "./routes/countDocuments.js"
 import feedbackRoute from "./routes/feedback.js";
+<<<<<<< HEAD
+import resultRoute from "./routes/result.js"; 
+import videoRoute from "./routes/video.js"; 
+=======
 // import resultRoute from "./routes/result.js"; 
+>>>>>>> 2851c90195506942dbccc92f71b7722b7d884a68
 
 
 //config and middlewares
@@ -82,7 +87,12 @@ app.use("/api/tests", testRoute);
 app.use("/api/classes", classRoute);
 app.use("/api", countAllRoute)
 app.use("/api/feedback", feedbackRoute)
+<<<<<<< HEAD
+app.use("/api/result", resultRoute);
+app.use("/api/video", videoRoute); 
+=======
 // app.use("/api/result", resultRoute);
+>>>>>>> 2851c90195506942dbccc92f71b7722b7d884a68
 
 
 //listen on port
