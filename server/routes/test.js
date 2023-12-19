@@ -18,7 +18,7 @@ router.get("/faculty/:id", getFacultyTests);
 router.get("/student/:id", getStudentTests);
 router.get("/:id", getTest);
 router.put("/:id", updateTest);
-router.get("/single/:id", getSingleTest)
-router.get("/addMarks/:id", addMarks)
+router.get("/single/:id", getSingleTest);
+router.get("/addMarks/:id", addMarks);
 
 export default router;

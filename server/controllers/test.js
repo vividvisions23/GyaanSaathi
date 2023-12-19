@@ -86,12 +86,20 @@ export const addMarks = async(req, res, next) => {
   try {
     const test = await Test.findById(req.params.id);
     const student = await Student.findById(student_id);
-    const pace = student.pace;
+    const sub_id = test.subject
+    try {
+      student.marks.push({sub_id, value})
+      await student.save();
+    }
+    catch(err) {
+
+    }
+
     if(!test)
       return res.status(404).json({message: "Test not found"})
 
     else {
-      test.marks.push({student_id, value, pace})
+      test.marks.push({student_id, value})
       const result = await test.save();
       return res.send(result);
     }

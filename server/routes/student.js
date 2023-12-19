@@ -12,12 +12,14 @@ import {
   removeStudentAttendanceBySubject,
   removeStudentAttendance,
   studentAttendance,
+  studentMarksforModel
 } from "../controllers/student.js";
 
 const router = express.Router();
 
 router.post("/registerStudent", registerStudent);
 router.post("/loginStudent", loginStudent);
+router.get('/studentMarks', studentMarksforModel);
 router.put('/ClearAllStudentsAtten/', clearAllStudentsAttendance);
 router.put("/:id", updateStudent);
 router.delete("/:id", deleteStudent);

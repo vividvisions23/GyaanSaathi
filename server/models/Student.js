@@ -81,10 +81,22 @@ const StudentSchema = new mongoose.Schema(
         },
         sub_id: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'subject',
+          ref: 'Course',
         },
       },
     ],
+    marks: [
+      {
+        sub_id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Course'
+        },
+        value: {
+          type: Number,
+          default: 0
+        }
+      }
+    ]
   },
   { timestamps: true }
 );
