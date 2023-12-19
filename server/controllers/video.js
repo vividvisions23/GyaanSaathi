@@ -12,6 +12,18 @@ export const fetchVideos = async (req, res, next) => {
     }
 }
 
+export const fetchVideo = async (req, res, next) => {
+    try{
+        const video = await Video.findById(req.params.id).populate('subject','name').populate('standard', 'name'); 
+        if (!video){
+            return res.status(404).json({message: "Video not found"}); 
+        }
+        res.json(video);
+    }
+    catch(err) {
+        next(err); 
+    }
+}
 
 export const fetchVideosFaculty = async (req, res, next) => {
     const faculty_id = req.params.id; 
@@ -20,7 +32,7 @@ export const fetchVideosFaculty = async (req, res, next) => {
         if (!faculty){
             return res.json({message: "No faculty exists"}); 
         }
-        const videos = await Video.find({faculty_id: faculty._id}); 
+        const videos = await Video.find({faculty: faculty_id}); 
         res.json(videos); 
 
     } catch (error) {
@@ -48,7 +60,7 @@ export const addVideos = async (req, res, next) => {
     const newVideo = new Video(req.body); 
     try {
         const savedVideo = await newVideo.save();
-        res.status(200).json(savedVideo);
+        res.status(200).json({ message: "Created successfully! "});
       } catch (err) {
         next(err);
       }

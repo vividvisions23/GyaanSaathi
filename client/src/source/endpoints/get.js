@@ -4,6 +4,8 @@ export const getDatatableURL = (path, user) => {
         return `/tasks/faculty/${user._id}`
     else if(path === 'stuTasks')
         return `/tasks/student/${user.class}`
+    else if (path === 'facVideo')
+        return `/video/faculty/${user._id}`
     else    
         return `${path}`
 }

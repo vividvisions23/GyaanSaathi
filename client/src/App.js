@@ -21,6 +21,7 @@ import { taskColumns } from "./source/datatablesource/taskColumns";
 import { updateColumns } from "./source/datatablesource/updateColumns";
 import { queryColumns } from "./source/datatablesource/queryColumns";
 import { courseColumns } from "./source/datatablesource/courseColumns";
+import { videoColumns } from "./source/datatablesource/videoColumns";
 
 
 // Form Inputs
@@ -49,6 +50,8 @@ import EditEvent from './pages/event/EditEvent';
 import Response from './pages/response/Response';
 import NewTest from "./pages/test/NewTest";
 import EditTest from "./pages/test/EditTest";
+import NewVideo from "./pages/video/NewVideo"; 
+import UpdateVideo from "./pages/video/UpdateVideo";
 
 // Common Pages
 import Home from "./pages/home/Home";
@@ -63,6 +66,7 @@ import NewTimeTable from "./pages/timetable/NewTimeTable";
 import Class from "./pages/class/Class";
 import AddClass from "./pages/class/AddClass";
 import ViewClass from "./pages/class/ViewClass";
+import { videoInputs } from "./source/formsource/videoInputs";
 
 
 function App() {
@@ -378,6 +382,35 @@ function App() {
             </RequireAdmin>
           }
         />
+
+          {/* routes for uploading videos faculty side */}
+
+        {/* list of videos */}
+        <Route path="/facVideo" element={
+            <RequireAuth>
+              <RequireFaculty>
+                <List column={videoColumns} name="Video" type="Creator" />
+              </RequireFaculty>
+            </RequireAuth>
+        } />
+
+        {/* edit page for videos */}
+        <Route path="/facVideo/:taskId/edit" element={
+            <RequireAuth>
+              <RequireFaculty>
+                <UpdateVideo title="Update Video" />
+              </RequireFaculty>
+            </RequireAuth>
+        } />
+
+        {/* create video page */}
+        <Route path="/facVideo/new" element={
+            <RequireAuth>
+              <RequireFaculty>
+                <NewVideo inputs={videoInputs} title="Add New Video" />
+              </RequireFaculty>
+            </RequireAuth>
+        } />
 
 
         {/* routes for events */}

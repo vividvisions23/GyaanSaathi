@@ -2,9 +2,10 @@ import express from 'express';
 
 const router = express.Router(); 
 
-import { fetchVideos, fetchVideosFaculty, fetchVideosClass, addVideos, updateVideo, deleteVideo } from "../controllers/video.js";
+import { fetchVideos, fetchVideo, fetchVideosFaculty, fetchVideosClass, addVideos, updateVideo, deleteVideo } from "../controllers/video.js";
 
 router.get('/', fetchVideos);
+router.get('/:id', fetchVideo); 
 router.get('/faculty/:id', fetchVideosFaculty); 
 router.get('/student/:id', fetchVideosClass); 
 router.post('/', addVideos); 
