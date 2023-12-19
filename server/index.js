@@ -21,6 +21,7 @@ import classRoute from "./routes/class.js"
 import countAllRoute from "./routes/countDocuments.js"
 import feedbackRoute from "./routes/feedback.js";
 import resultRoute from "./routes/result.js"; 
+import videoRoute from "./routes/video.js"; 
 
 
 //config and middlewares
@@ -83,6 +84,7 @@ app.use("/api/classes", classRoute);
 app.use("/api", countAllRoute)
 app.use("/api/feedback", feedbackRoute)
 app.use("/api/result", resultRoute);
+app.use("/api/video", videoRoute); 
 
 
 //listen on port
