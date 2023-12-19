@@ -1,41 +1,57 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
 const TestSchema = new mongoose.Schema(
     {
         name: {
-            type: String, 
+            type: String,
             required: true
         },
-        subject_id: {
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: 'Course', 
-            required: false
+        subject: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Course'
         },
         syllabus: {
             type: String,
             required: true
         },
         duration: {
-            type: String,
+            type: Number,
             required: true
         },
         date: {
-            type: String,
+            type: Date,
             required: true
-        }, 
+        },
         author: {
-            type: String,
-            required: true
-        },
-        class: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Class',
+            ref: 'Faculty'
+        },
+        sclass: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Class'
+        },
+        totalMarks: {
+            type: Number,
             required: true
         },
-        pace: {
-            type: String
-        }
+        marks: [
+            {
+                student_id: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Student',
+                },
+                value: {
+                    type: Number,
+                    default: 0
+                },
+                pace: {
+                    type: String
+                }
+            }
+        ]
+    }, {
+        timestamps: true
     }
 );
 
-export default mongoose.model("Test", TestSchema);
+export default mongoose.model("Test", TestSchema)

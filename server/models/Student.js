@@ -73,9 +73,7 @@ const StudentSchema = new mongoose.Schema(
       {
         atten_date: {
           type: String,
-          required: true,
-          // get: (date) => date.toISOString().split('T')[0], // Get the date as a string in "YYYY-MM-DD" format
-          // set: (dateString) => new Date(dateString), 
+          set: (dateString) => new Date(dateString), 
         },
         status: {
           type: Boolean,
@@ -84,7 +82,6 @@ const StudentSchema = new mongoose.Schema(
         sub_id: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'subject',
-          required: true,
         },
       },
     ],

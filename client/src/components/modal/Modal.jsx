@@ -100,6 +100,19 @@ const Modal = ({ setOpen, id, type }) => {
                         
                     </div>
                 }
+
+                {/* If type is videos */}
+                {
+                    type === "videos" &&
+                    <div className="mTasks">
+                        <div className="mTitle">{data?.subjectCode} {data?.name}</div>
+                        {data.syllabusPicture && <img className="syll" src={data.syllabusPicture} alt="syllabus picture"/>}
+                        {data.teacher && <p><span>Taught by</span> : {data?.teacher?.teachername}</p>}
+                        <p><span>Semester</span> : {data?.class?.name}</p>
+                        
+                    </div>
+                }
+                
             </div>
         </div>
     )

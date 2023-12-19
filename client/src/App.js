@@ -203,6 +203,15 @@ function App() {
 
         {/* view video student */}
 
+        <Route path="/stuVideo" element={
+            <RequireAuth>
+              <RequireStudent>
+                < List column={taskColumns} type="Main" name="Video" />
+              </RequireStudent>
+            </RequireAuth>
+        } />
+
+
 
 
         {/* routes for faculties */}
@@ -415,6 +424,9 @@ function App() {
               </RequireFaculty>
             </RequireAuth>
         } />
+
+        { /* view video uploaded  */ }
+
 
 
         {/* routes for events */}

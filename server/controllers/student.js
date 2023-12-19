@@ -177,12 +177,9 @@ export const getSingleStudent = async (req, res, next) => {
   }
 
   export const studentAttendance = async (req, res, next) => {
-    //check the accessing of 0th element for now check for future; 
-    const { atten_date, status, sub_id } = req.body.attendance[0];
-    // const dateObj = new Date(date); 
-    // const formattedDate = dateObj.toISOString().split('T')[0];
     
-  
+    const { atten_date, status, sub_id } = req.body;
+
     try {
       const student = await Student.findById(req.params.id);
   
@@ -190,25 +187,16 @@ export const getSingleStudent = async (req, res, next) => {
         return res.send({ message: 'Student not found' });
       }
   
-      const subject = await Course.findById(sub_id);
-  
       const existingAttendance = student.attendance.find(
-        (a) =>    
-          // a.date.toDateString() === new Date(date).toDateString() &&
-          a.atten_date.toString() === atten_date &&
-          a.sub_id.toString() === sub_id
-          // a.subName.toString() === subName
+        (a) =>
+                a.date.toDateString() === new Date(date).toDateString() &&
+                a.subName.toString() === subName
       );
   
       if (existingAttendance) {
         existingAttendance.status = status;
       } else {
-        // Check if the student has already attended the maximum number of sessions
-        // const attendedSessions = student.attendance.filter(
-        //   (a) => a.sub_id.toString() === sub_id
-        // ).length;
-  
-        student.attendance.addToSet({ atten_date, status, sub_id });
+        student.attendance.push({ atten_date, status, sub_id });
       }
   
       const result = await student.save();
@@ -233,11 +221,10 @@ export const getSingleStudent = async (req, res, next) => {
   };
   
   export const clearAllStudentsAttendance = async (req, res, next) => {
-    const schoolId = req.params.id;
   
     try {
       const result = await Student.updateMany(
-        { school: schoolId },
+        {},
         { $set: { attendance: [] } }
       );
   
