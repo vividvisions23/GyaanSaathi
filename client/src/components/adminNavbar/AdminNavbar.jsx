@@ -27,9 +27,12 @@ const AdminNavbar = () => {
       <div className="wrapper">
 
         {/* Home and brand icon */}
-        <Link to="/admin">
+        <Link to="/admin" style={{ textDecoration: "none"}}>
           {/* <p className=""><img src={process.env.PUBLIC_URL + "/Assets/brand.png"} height="60px" alt="" /></p> */}
-          <p style={{"color" : "black"}}>Admin Dashboard</p>
+          <div className="logo">
+            <img src="/Assets/logo.png" alt="" style={{height: "50px"}}/>
+            <p>Admin Dashboard</p>
+          </div>
         </Link>
 
         <div className="items">

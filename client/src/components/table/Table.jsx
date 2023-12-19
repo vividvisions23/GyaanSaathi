@@ -16,6 +16,7 @@ const List = () => {
 
   // fetch latest/upcoming events
   const { data } = useFetch("/updates");
+  const newData= data.slice(0, 5);
 
   return (
     <TableContainer component={Paper} className="table">
@@ -32,7 +33,7 @@ const List = () => {
 
 
         <TableBody>
-          {data.map((row) => (
+          {newData?.map((row) => (
 
             // row.id is just a number
             <TableRow key={row.id}>

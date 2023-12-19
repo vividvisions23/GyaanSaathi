@@ -13,7 +13,7 @@ import useFetch from "../../hooks/useFetch";
 const NewTask = ({ inputs, title }) => {
 
   const [info, setInfo] = useState({});
-  const [deadline, setDeadline] = useState("");
+  const [deadline, setDeadline] = useState(new Date());
   const [sclass, setSclass] = useState("");
   const { user } = useContext(AuthContext)
   const classes = useFetch(`/faculties/classes/${user._id}`).data
@@ -30,7 +30,7 @@ const NewTask = ({ inputs, title }) => {
     e.preventDefault();
     try {
       const newtask = {
-        ...info, deadline: deadline, author: user.teachername, sclass: sclass 
+        ...info, deadline: deadline, author: user._id, sclass: sclass 
       }
       await axios.post("http://localhost:5500/api/tasks", newtask, {
         withCredentials: false
@@ -40,6 +40,7 @@ const NewTask = ({ inputs, title }) => {
       console.log(err)
     }
   }
+
 
 
   return (
@@ -73,6 +74,7 @@ const NewTask = ({ inputs, title }) => {
                 <select
                   onChange={(e) => setSclass(e.target.value)}
                   id="classId">
+                    <option>-</option>
                     {
                       classes && classes.length > 0 &&
                       classes.map((cl, index) => (

@@ -4,6 +4,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import useFetch from "../../hooks/useFetch"
 import { useState } from "react";
 import axios from "axios";
+import { getModalURL } from "../../source/endpoints/get";
 
 
 // setOpen prop, id is the id of the data we need to display and type will tell whether it's task or update
@@ -11,7 +12,7 @@ import axios from "axios";
 const Modal = ({ setOpen, id, type }) => {
 
     // fetch the required data
-    const { data } = useFetch(`/${type}/${id}`);
+    const { data } = useFetch(getModalURL(type, id));
 
     const [info, setInfo] = useState({});
 
@@ -36,7 +37,6 @@ const Modal = ({ setOpen, id, type }) => {
         }
     }
 
-
     return (
         <div className="modal">
             <div className="mContainer">
@@ -53,24 +53,18 @@ const Modal = ({ setOpen, id, type }) => {
                     <div className="mUpdates">
                         <div className="mTitle">{data.title}</div>
                         <div className="mDesc">{data.desc}</div>
-                        {/* <button className="mButton">
-                            Mark
-                        </button> */}
                     </div>
                 }
 
                 {/* If type is tasks */}
                 {
-                    type === "tasks" &&
+                    (type === "facTasks" || type==="stuTasks" || type === 'tasks') &&
                     <div className="mTasks">
                         <div className="mTitle">{data.title}</div>
                         <div className="mDesc">{data.desc}</div>
-                        <p><span>Deadline</span> : {data.deadline}</p>
-                        <p><span>Assigned To</span> : {data.sclass?.name}</p>
-                        <p><span>Assigned By</span>: {data.author}</p>
-                        {/* <button className="mButton">
-                            Mark
-                        </button> */}
+                        <p><span>Deadline</span> : {new Date(data.deadline).toLocaleDateString()}</p>
+                        <p><span>Assigned To</span> : {data?.sclass?.name}</p>
+                        <p><span>Assigned By</span>: {data?.author?.teachername}</p>
                     </div>
                 }
 

@@ -16,7 +16,7 @@ import NavSidebar from "../NavSidebar/NavSidebar"
 
 const Navbar = () => {
 
-  const { Dispatch, darkMode } = useContext(DarkModeContext);
+  const { Dispatch} = useContext(DarkModeContext);
   const { user } = useContext(AuthContext)
   
   const updates = useFetch('/updates').data
@@ -72,7 +72,10 @@ const Navbar = () => {
         {/* takes to main landing page and if it is darkmode changes the brand so it's visible*/}
         <Link to="/">
           {/* {darkMode ? <p className="brand"><img src={process.env.PUBLIC_URL + "/Assets/brand2.png"} height="60px" alt="" /></p> : <p className="brand"><img src={process.env.PUBLIC_URL + "/Assets/brand.png"} height="60px" alt="" /></p>} */}
-          <p style={{"color": "black"}}>ERP Portal</p>
+          <div className="logo" style={{textDecoration: "none"}}>
+            <img src="/Assets/logo.png" alt="" style={{height: "50px"}}/>
+            <p>Edu-Sangam</p>
+          </div>
         </Link>
 
         <div className="items">
@@ -99,13 +102,6 @@ const Navbar = () => {
                 <p>{item.desc.slice(0, 25)} ...</p>
               </li>
             ))}
-
-            {/* Takes to the page of all updates
-            <Link to={user.isStudent && user.isCR? "/updates/cr" : "/updates"} style={{ textDecoration: "none" }}>
-              <li id="more">
-                View all new updates
-              </li>
-            </Link> */}
           </ul>}
 
 

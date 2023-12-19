@@ -11,7 +11,7 @@ const TaskSchema = new mongoose.Schema(
       required: true
     },
     deadline: {
-      type: String,
+      type: Date,
       required: true
     },
     sclass: {
@@ -19,8 +19,8 @@ const TaskSchema = new mongoose.Schema(
       ref: 'Class',
     },
     author: {
-      type: String,
-      required: true
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Faculty'
     },
     pace: {
       type: String

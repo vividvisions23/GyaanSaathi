@@ -1,13 +1,13 @@
 export const taskColumns = [
-    { field: "_id", headerName: "ID", width: 250 },
+    // { field: "_id", headerName: "ID", width: 250 },
     {
         field: "title",
         headerName: "Task",
-        width: 150,
+        width: 250,
     },
     {
         field: "desc",
         headerName: "Description",
-        width: 100,
+        width: 500,
     }
 ];

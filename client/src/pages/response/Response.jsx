@@ -15,7 +15,6 @@ const Response = () => {
     setQuery(queries.filter(item => item.author === user.name))
   }, [queries])
 
-  console.log(query);
 
   return (
     <div className="response">

@@ -92,3 +92,17 @@
     }
   }
 }
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  justify-content: space-between;
+  color: black;
+
+  img {
+    height: 50px;
+    margin-bottom: 5px;
+  }
+}

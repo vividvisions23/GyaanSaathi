@@ -13,6 +13,7 @@ import useFetch from "../../hooks/useFetch.js"
 
 // Modal for showing the details about tasks and updates
 import Modal from "../../components/modal/Modal";
+import { getDatatableURL } from "../../source/endpoints/get.js";
 
 
 
@@ -35,8 +36,8 @@ const Datatable = ({ column, name, type }) => {
 
 
   // fetching data using the path
-  const { data } = useFetch(`/${path}`)
   const { user } = useContext(AuthContext)
+  const { data } = useFetch(getDatatableURL(path, user))
 
   // array usestate that gets fed every time page loads
   const [list, setList] = useState([]);
@@ -148,11 +149,11 @@ const Datatable = ({ column, name, type }) => {
         <div className="datatableTitle">
         {name}
         </div>
-        <Link to={`/admin/${path}/new`} style={{"textDecoration": "none"}}>
+        {(type === "Admin" || type==="Creator" )&& <Link to={`new`} style={{"textDecoration": "none"}}>
           <div className="link">
             Create
           </div>
-        </Link>
+        </Link>}
       </div>
 
       {/* Datagrid element */}

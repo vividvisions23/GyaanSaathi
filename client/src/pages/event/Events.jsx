@@ -3,13 +3,15 @@ import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import Navbar from "../../components/navbar/Navbar";
 import useFetch from '../../hooks/useFetch';
 import Modal from '../../components/modal/Modal';
+import { AuthContext } from '../../context/AuthContext';
+import { getCalenderURL } from '../../source/endpoints/get';
 
 const locales = {
     "en-US": require("date-fns/locale/en-US"),
@@ -24,7 +26,8 @@ const localizer = dateFnsLocalizer({
 
 
 const Events = () => {
-    const tasks = useFetch("/tasks").data
+    const { user } = useContext(AuthContext)
+    const tasks = useFetch(getCalenderURL(user)).data
     const tests = useFetch("/tests").data
     const [events, setEvents] = useState([]);
     const [clickedEvent, setClickedEvent] = useState({});
