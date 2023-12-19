@@ -71,16 +71,17 @@ const StudentSchema = new mongoose.Schema(
     },
     attendance: [
       {
-        date: {
-          type: Date,
+        atten_date: {
+          type: String,
           required: true,
+          // get: (date) => date.toISOString().split('T')[0], // Get the date as a string in "YYYY-MM-DD" format
+          // set: (dateString) => new Date(dateString), 
         },
         status: {
-          type: String,
-          enum: ['Present', 'Absent'],
+          type: Boolean,
           required: true,
         },
-        subName: {
+        sub_id: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'subject',
           required: true,

@@ -26,6 +26,9 @@ const CourseSchema = new mongoose.Schema(
             ref: 'Faculty',
             default: null
         },
+        sessions: {
+            type: Number, 
+        }
     }
 );
 
