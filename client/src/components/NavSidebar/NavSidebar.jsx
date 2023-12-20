@@ -186,6 +186,15 @@ const NavSidebar = ({ setOpen }) => {
                         <span onClick={handleClick}>Logout</span>
                     </li>
                     
+                    { /* virtual lab */}
+                    <Link to="/virtual_lab" style={{ textDecoration: "none" }}>
+                            <li>
+                                <VerifiedIcon className="icon" />
+                                <span>Virtual Labs</span>
+                            </li>
+                    </Link>
+
+                    
                     {/* Toggle Theme */}
                     <p className="title">Theme</p>
                     <div className="theme">

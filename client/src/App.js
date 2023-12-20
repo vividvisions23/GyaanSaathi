@@ -63,6 +63,11 @@ import ViewClass from "./pages/class/ViewClass";
 import { videoInputs } from "./source/formsource/videoInputs";
 import StuVideo from "./pages/video/ViewVideo";
 import StudentCategory from "./components/studentCategory/StudentCategory";
+import VirtualLab from "./pages/virtual_labs/virtual_lab";
+import PendulumLab from "./pages/virtual_labs/pendulum/Pendulum";
+import AcidBaseLab from "./pages/virtual_labs/acid_base/AcidBase";
+import CellDivisionLab from "./pages/virtual_labs/Mitosis/Mitosis";
+
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -224,6 +229,58 @@ function App() {
               </RequireAuth>
             }
           />
+
+          
+          {/* fetch virtual_labs*/ }
+          <Route 
+            path="/virtual_lab"
+            element = {
+              <RequireAuth>
+                <RequireStudent>
+                  <VirtualLab />
+                </RequireStudent>
+              </RequireAuth>
+            }
+            />
+
+            <Route 
+            path="/virtual_lab/pendulum" 
+            element = {
+              <RequireAuth>
+                <RequireStudent>
+                  <PendulumLab />
+                </RequireStudent>
+              </RequireAuth>
+            }
+            
+            />
+            
+            
+            <Route 
+            path="/virtual_lab/acid" 
+            element = {
+              <RequireAuth>
+                <RequireStudent>
+                  <AcidBaseLab />
+                </RequireStudent>
+              </RequireAuth>
+            }
+            
+            />
+
+            
+          <Route 
+            path="/virtual_lab/mitosis" 
+            element = {
+              <RequireAuth>
+                <RequireStudent>
+                  <CellDivisionLab />
+                </RequireStudent>
+              </RequireAuth>
+            }
+            
+            />
+
 
           {/* routes for faculties */}
 
