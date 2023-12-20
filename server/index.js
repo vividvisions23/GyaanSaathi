@@ -20,7 +20,6 @@ import testRoute from "./routes/test.js"
 import classRoute from "./routes/class.js"
 import countAllRoute from "./routes/countDocuments.js"
 import feedbackRoute from "./routes/feedback.js";
-// import resultRoute from "./routes/result.js"; 
 
 
 //config and middlewares

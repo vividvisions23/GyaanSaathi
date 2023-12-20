@@ -39,6 +39,8 @@ const Datatable = ({ column, name, type }) => {
   const { user } = useContext(AuthContext)
   const { data } = useFetch(getDatatableURL(path, user))
 
+  console.log(data)
+
   // array usestate that gets fed every time page loads
   const [list, setList] = useState([]);
 

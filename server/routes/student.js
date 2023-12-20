@@ -9,10 +9,9 @@ import {
   getSingleStudent,
   clearAllStudentsAttendanceBySubject,
   clearAllStudentsAttendance,
-  removeStudentAttendanceBySubject,
-  removeStudentAttendance,
   studentAttendance,
-  studentMarksforModel
+  studentMarksforModel,
+  getOverallAttendancePercentage
 } from "../controllers/student.js";
 
 const router = express.Router();
@@ -21,13 +20,13 @@ router.post("/registerStudent", registerStudent);
 router.post("/loginStudent", loginStudent);
 router.get('/studentMarks', studentMarksforModel);
 router.put('/ClearAllStudentsAtten/', clearAllStudentsAttendance);
+router.put('/ClearAllStudentsSubAtten/:id', clearAllStudentsAttendanceBySubject);
 router.put("/:id", updateStudent);
 router.delete("/:id", deleteStudent);
 router.get("/:id", getStudent);
 router.get("/single/:id", getSingleStudent);
 router.get("/", getStudents);
 router.put('/StudentAttendance/:id', studentAttendance)
-router.put('/ClearAllStudentsSubAtten/:id', clearAllStudentsAttendanceBySubject);
-router.put('/RemoveStudentSubAtten/:id', removeStudentAttendanceBySubject);
-router.put('/RemoveStudentAtten/:id', removeStudentAttendance);
+router.get('/getAttendance/:studentId', getOverallAttendancePercentage)
 export default router;
+

@@ -72,8 +72,8 @@ const StudentSchema = new mongoose.Schema(
     attendance: [
       {
         atten_date: {
-          type: String,
-          set: (dateString) => new Date(dateString), 
+          type: Date,
+          // set: (dateString) => new Date(dateString), 
         },
         status: {
           type: Boolean,

@@ -3,7 +3,6 @@ import "./single.scss";
 import { useLocation, useNavigate} from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar";
 import AdminNavbar from "../../components/adminNavbar/AdminNavbar";
-
 import useFetch from "../../hooks/useFetch";
 import Course from "../../components/course/Course";
 
@@ -20,6 +19,7 @@ const Single = ({ type }) => {
   else
     id = location.pathname.split("/")[3];
   const { data } = useFetch(`/students/${id}`)
+  const attendance = useFetch(`/students/getAttendance/${id}`).data 
   
   
   // used to navigate to a certain link
@@ -94,8 +94,11 @@ const Single = ({ type }) => {
             </div>
           </div>
           <div className="right">
-            <div>Marks</div>
-            <div>Attendance</div>
+            <div className="title">Marks</div>
+            <h2 className="title">Attendance</h2>
+            <div>{attendance.perc ? (<>Attendance: {attendance?.perc}</>):("Attendance doesn't currently exist")}</div>
+            <div>Classes Attended: {attendance?.attended}</div>
+            <div>Total Classes: {attendance?.total}</div>
           </div>
         </div>
         <div className="bottom">

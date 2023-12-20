@@ -166,8 +166,13 @@ export const getSingleStudent = async (req, res, next) => {
       .populate('class', 'name')
 
       const transformedStudents = students.map(student => {
-        const { class: { name, ...classInfo }, ...rest } = student.toObject();
-        return { ...rest, classname: name, classInfo };
+        if (student.class) {
+          const { class: { name, ...classInfo }, ...rest } = student.toObject();
+          return { ...rest, classname: name, classInfo };
+        } else {
+          // Handle the case where 'class' property is undefined
+          return student.toObject();
+        }
       });
   
       res.status(200).json(transformedStudents);
@@ -186,11 +191,11 @@ export const getSingleStudent = async (req, res, next) => {
       if (!student) {
         return res.send({ message: 'Student not found' });
       }
-  
+
       const existingAttendance = student.attendance.find(
         (a) =>
-                a.date.toDateString() === new Date(date).toDateString() &&
-                a.subName.toString() === subName
+          a.atten_date.toDateString() === new Date(atten_date).toDateString() &&
+          a.sub_id.toString() === sub_id
       );
   
       if (existingAttendance) {
@@ -207,14 +212,14 @@ export const getSingleStudent = async (req, res, next) => {
   };
   
   export const clearAllStudentsAttendanceBySubject = async (req, res, next) => {
-    const subName = req.params.id;
+    const sub_id = req.params.id;
   
     try {
-      const result = await Student.updateMany(
-        { 'attendance.sub_id': subName },
-        { $pull: { attendance: { subName } } }
-      );
-      return res.send(result);
+        const result = await Student.updateMany(
+            { 'attendance.sub_id': sub_id },
+            { $pull: { attendance: { sub_id } } } 
+        );
+        return res.send(result);
     } catch (error) {
       next(error);
     }
@@ -233,29 +238,12 @@ export const getSingleStudent = async (req, res, next) => {
       next(error);
     }
   };
-  
-  export const removeStudentAttendanceBySubject = async (req, res, next) => {
-    const studentId = req.params.id;
-    const subName = req.body.sub_id;
+
+  export const getSubjectAttendance = async (req, res, next) => {
   
     try {
-      const result = await Student.updateOne(
-        { _id: studentId },
-        { $pull: { attendance: { subName: subName } } }
-      );
-  
-      return res.send(result);
-    } catch (error) {
-      next(error);
-    }
-  };
-  
-  export const removeStudentAttendance = async (req, res, next) => {
-    const studentId = req.params.id;
-  
-    try {
-      const result = await Student.updateOne(
-        { _id: studentId },
+      const result = await Student.updateMany(
+        {},
         { $set: { attendance: [] } }
       );
   
@@ -264,6 +252,36 @@ export const getSingleStudent = async (req, res, next) => {
       next(error);
     }
   };
+
+  export const getOverallAttendancePercentage = async (req, res, next) => {
+    const { studentId } = req.params;
+
+    try {
+        const student = await Student.findById(studentId);
+
+        if (!student) {
+            return res.status(404).send({ message: 'Student not found' });
+        }
+
+        // Get all attendance records for the student
+        const allAttendance = student.attendance;
+
+        const totalClasses = allAttendance.length;
+        const attendedClasses = allAttendance.filter(
+            (record) => record.status === true
+        ).length;
+
+        // Calculate overall attendance percentage
+        const overallAttendancePercentage = totalClasses > 0
+            ? ((attendedClasses / totalClasses) * 100).toFixed(2)
+            : 0;
+
+        return res.send({ perc: overallAttendancePercentage, total: totalClasses, attended: attendedClasses });
+    } catch (error) {
+      next(error)
+    }
+  }
+
 
   export const studentMarksforModel = async (req, res, next) => {
     try {
