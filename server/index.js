@@ -4,7 +4,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import cors from "cors"
+import cors from "cors";
+import multer from "multer";
 
 //import route
 import adminRoute from "./routes/admin.js";
@@ -15,45 +16,42 @@ import updateRoute from "./routes/updates.js";
 import eventRoute from "./routes/events.js";
 import queryRoute from "./routes/queries.js";
 import courseRoute from "./routes/course.js";
-import timetableRoute from "./routes/timetable.js"
-import testRoute from "./routes/test.js"
-import classRoute from "./routes/class.js"
-import countAllRoute from "./routes/countDocuments.js"
+import timetableRoute from "./routes/timetable.js";
+import testRoute from "./routes/test.js";
+import classRoute from "./routes/class.js";
+import countAllRoute from "./routes/countDocuments.js";
 import feedbackRoute from "./routes/feedback.js";
-<<<<<<< HEAD
-import resultRoute from "./routes/result.js"; 
-import videoRoute from "./routes/video.js"; 
-=======
-// import resultRoute from "./routes/result.js"; 
->>>>>>> 2851c90195506942dbccc92f71b7722b7d884a68
-
+// import resultRoute from "./routes/result.js";
+import videoRoute from "./routes/video.js";
+import materialRoutes from "./routes/material.js";
 
 //config and middlewares
 const app = express();
 dotenv.config();
-app.use(cors({
-  origin: "http://localhost:3000",
-  credential: true
-}));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credential: true,
+  })
+);
 
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
-  const errorMessage = err.message || "Something went wrong"
+  const errorMessage = err.message || "Something went wrong";
   res.status(errorStatus).json({
     success: false,
     status: errorStatus,
     message: errorMessage,
-    stack: err.stack
-  })
-})
+    stack: err.stack,
+  });
+});
 
 const PORT = process.env.PORT || 5500;
-
 
 // mongoose connection
 
@@ -70,7 +68,12 @@ mongoose.connection.on("disconnected", () => {
   console.log("mongoDB disconnected!");
 });
 
-app.get('/', (req, res) => { res.send('Hello from Express!') });
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+app.get("/", (req, res) => {
+  res.send("Hello from Express!");
+});
 
 //routes
 
@@ -85,15 +88,11 @@ app.use("/api/courses", courseRoute);
 app.use("/api/timetables", timetableRoute);
 app.use("/api/tests", testRoute);
 app.use("/api/classes", classRoute);
-app.use("/api", countAllRoute)
-app.use("/api/feedback", feedbackRoute)
-<<<<<<< HEAD
-app.use("/api/result", resultRoute);
-app.use("/api/video", videoRoute); 
-=======
+app.use("/api", countAllRoute);
+app.use("/api/feedback", feedbackRoute);
 // app.use("/api/result", resultRoute);
->>>>>>> 2851c90195506942dbccc92f71b7722b7d884a68
-
+app.use("/api/video", videoRoute);
+app.use("/api/material", materialRoutes);
 
 //listen on port
 
