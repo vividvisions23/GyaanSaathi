@@ -1,0 +1,67 @@
+/* PendulumLab.css */
+
+@keyframes swing {
+    to {
+      transform: rotate(45deg);
+    }
+  }
+  
+  .pendulum-lab {
+    background-color: #3e4095;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+  }
+  
+  .lab-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .pendulum-container {
+    position: relative;
+    width: 40%;
+  }
+  
+  .pendulum {
+    width: 2px;
+    height: 150px;
+    background-color: #fff;
+    margin: 0 auto;
+    position: relative;
+    transform-origin: top center;
+    animation: swing 2s ease-in-out infinite alternate;
+  }
+  
+  .bob {
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -20px; /* Adjust this value based on the size of the bob */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .controls-container {
+    width: 40%;
+  }
+  
+  label {
+    font-size: 16px;
+  }
+  
+  input {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  span {
+    display: block;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  

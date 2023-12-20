@@ -1,0 +1,56 @@
+/* CellDivisionLab.css */
+
+.cell-division-lab {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .cell-stage {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px 0;
+    font-size: 18px;
+  }
+  
+  .cell {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .nucleus {
+    background-color: #e74c3c;
+  }
+  
+  .chromosome {
+    background-color: #3498db;
+  }
+  
+  .division {
+    background-color: #2ecc71;
+  }
+  
+  .daughter-cells {
+    background-color: #f39c12;
+  }
+  
+  .controls {
+    margin-top: 20px;
+  }
+  
+  button {
+    font-size: 16px;
+    margin: 0 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    cursor: not-allowed;
+  }
+  
