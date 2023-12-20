@@ -7,7 +7,8 @@ import {
   getStudentTests,
   getSingleTest,
   updateTest,
-  addMarks
+  addMarks,
+  updateMarks,
 } from "../controllers/test.js";
 
 const router = express.Router();
@@ -20,5 +21,6 @@ router.get("/:id", getTest);
 router.put("/:id", updateTest);
 router.get("/single/:id", getSingleTest);
 router.get("/addMarks/:id", addMarks);
+router.put("/updateMarks/:id", updateMarks);
 
 export default router;

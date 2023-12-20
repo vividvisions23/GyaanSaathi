@@ -1,15 +1,24 @@
-import express from 'express'; 
+import express from "express";
 
-const router = express.Router(); 
+const router = express.Router();
 
-import { fetchVideos, fetchVideo, fetchVideosFaculty, fetchVideosClass, addVideos, updateVideo, deleteVideo } from "../controllers/video.js";
+import {
+  fetchVideos,
+  fetchVideo,
+  fetchVideosFaculty,
+  fetchVideosClass,
+  addVideos,
+  updateVideo,
+  deleteVideo,
+} from "../controllers/video.js";
 
-router.get('/', fetchVideos);
-router.get('/:id', fetchVideo); 
-router.get('/faculty/:id', fetchVideosFaculty); 
-router.get('/student/:id', fetchVideosClass); 
-router.post('/', addVideos); 
-router.put('/:id', updateVideo);  //id is video id
-router.delete('/:id', deleteVideo); 
+router.get("/", fetchVideos);
+router.get("/faculty/:id", fetchVideosFaculty);
+router.get("/student/:id", fetchVideosClass);
+router.get("/:id", fetchVideo);
 
-export default router; 
+router.post("/", addVideos);
+router.put("/:id", updateVideo); //id is video id
+router.delete("/:id", deleteVideo);
+
+export default router;
