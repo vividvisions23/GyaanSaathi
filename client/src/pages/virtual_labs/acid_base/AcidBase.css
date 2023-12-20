@@ -1,0 +1,98 @@
+/* AcidBaseLab.css */
+
+.acid-base-lab {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .beaker {
+    width: 150px;
+    height: 300px;
+    background-color: #ddd;
+    position: relative;
+  }
+  
+  .liquid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    transition: height 1s ease-in-out;
+  }
+  
+  .pH0 {
+    background-color: red; /* Strong Acid */
+}
+    .pH1 {
+    background-color: red; /* Strong Acid */
+  }
+  .pH2 {
+    background-color: red; /* Strong Acid */
+  }
+  .pH3 {
+    background-color: red; /* Strong Acid */
+  }
+  .pH4 {
+    background-color: red; /* Strong Acid */
+  }
+  .pH5 {
+    background-color: red; /* Strong Acid */
+  }
+
+  .pH5 {
+    background-color: red; /* Strong Acid */
+  }
+
+  .pH6 {
+    background-color: red; /* Neutral */
+  }
+  
+  .pH7 {
+    background-color: yellow; /* Neutral */
+  }
+
+  .pH8 {
+    background-color: blue; /* Neutral */
+  }
+
+  .pH9 {
+    background-color: blue; /* Neutral */
+  }
+
+  .pH10 {
+    background-color: blue; /* Neutral */
+  }
+
+  .pH11 {
+    background-color: blue; /* Neutral */
+  }
+
+  .pH12 {
+    background-color: blue; /* Neutral */
+  }
+
+  .pH13 {
+    background-color: blue; /* Neutral */
+  }
+
+  .pH14 {
+    background-color: blue; /* Strong Base */
+  }
+  
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 16px;
+  }
