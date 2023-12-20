@@ -55,7 +55,7 @@ const UpdateVideo = ({ title }) => {
     }
   } 
 
-
+  console.log(info)
   return (
     <div className="new">
 
@@ -113,7 +113,7 @@ const UpdateVideo = ({ title }) => {
                     {
                       classes && classes.length > 0 &&
                       classes.map((cl, index) => (
-                        <option key={index} value={cl._id} selected={info?.sclass?._id === cl._id}>{cl.name}</option>
+                        <option key={index} value={cl._id} selected={info?.standard?._id === cl._id}>{cl.name}</option>
                         ))
                       }
                 </select>

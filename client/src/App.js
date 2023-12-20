@@ -61,9 +61,7 @@ import Class from "./pages/class/Class";
 import AddClass from "./pages/class/AddClass";
 import ViewClass from "./pages/class/ViewClass";
 import { videoInputs } from "./source/formsource/videoInputs";
-
-import { getDeleteURL } from "./source/endpoints/delete";
-import StuVideo from "./pages/stuVideo/viewVideo";
+import StuVideo from "./pages/video/ViewVideo";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -389,18 +387,6 @@ function App() {
             }
           />
 
-          {/*  create new classes */}
-
-          <Route
-            path="/admin/classes/new"
-            element={
-              <RequireAdmin>
-                <RequireAuth>
-                  {/* <NewCourse inputs={classInputs} title="Add New Class"/> */}
-                </RequireAuth>
-              </RequireAdmin>
-            }
-          />
 
           {/* edit classes */}
 
@@ -618,46 +604,6 @@ function App() {
               </RequireStudent>
             </RequireAuth>
         } /> */}
-
-          {/* updates page faculty side*/}
-          <Route
-            path="/updates/cr"
-            element={
-              <RequireAuth>
-                <RequireCreator>
-                  <List column={updateColumns} type="Creator" name="Update" />
-                </RequireCreator>
-              </RequireAuth>
-            }
-          />
-
-          {/* edit update */}
-          <Route
-            path="/updates/cr/:updateId/edit"
-            element={
-              <RequireAuth>
-                <RequireCreator>
-                  <EditUpdate title="Edit Updates" type="Main" />
-                </RequireCreator>
-              </RequireAuth>
-            }
-          />
-
-          {/* create update page */}
-          <Route
-            path="/updates/cr/new"
-            element={
-              <RequireAuth>
-                <RequireCreator>
-                  <NewUpdate
-                    inputs={updateInputs}
-                    title="Add New Update"
-                    type="Main"
-                  />
-                </RequireCreator>
-              </RequireAuth>
-            }
-          />
 
           {/* routes for tests faculty side */}
 

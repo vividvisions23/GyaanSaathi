@@ -13,7 +13,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import EditIcon from '@mui/icons-material/Edit';
 import AddTaskIcon from '@mui/icons-material/AddTask';
-import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
 import MarkChatReadIcon from '@mui/icons-material/MarkChatRead';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
@@ -21,6 +20,7 @@ import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import AddchartIcon from '@mui/icons-material/Addchart';
 import QueuePlayNextIcon from '@mui/icons-material/QueuePlayNext';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -82,6 +82,14 @@ const NavSidebar = ({ setOpen }) => {
                         </li>
                     </Link>
 
+                    {/* Takes you to list of all tasks created by admin */}
+                    <Link to={user.isFaculty? "/facVideo" : "/stuVideo"} style={{ textDecoration: "none" }}>
+                        <li>
+                            <OndemandVideoIcon className="icon" />
+                            <span>Videos</span>
+                        </li>
+                    </Link>
+
                     {/* Takes you to list of all responses sent by faculties */}
                     {user.isStudent && <Link to="/responses" style={{ textDecoration: "none" }}>
                         <li>
@@ -107,41 +115,34 @@ const NavSidebar = ({ setOpen }) => {
                         </li>
                     </Link>}
 
-                    {(user.isFaculty) && <Link to="" style={{ textDecoration: "none" }}>
+                    {(user.isFaculty) && <Link to="/attendance/new" style={{ textDecoration: "none" }}>
                         <li>
                             <PlaylistAddIcon className="icon" />
                             <span>Attendance</span>
                         </li>
                     </Link>}
 
-                    {(user.isFaculty) && <Link to="" style={{ textDecoration: "none" }}>
+                    {(user.isFaculty) && <Link to="/marks/new" style={{ textDecoration: "none" }}>
                         <li>
                             <AddchartIcon className="icon" />
                             <span>Marks</span>
                         </li>
                     </Link>}
 
-                    {(user.isFaculty) && <Link to="" style={{ textDecoration: "none" }}>
+                    {(user.isFaculty) && <Link to="/material/new" style={{ textDecoration: "none" }}>
                         <li>
                             <PostAddIcon className="icon" />
                             <span>Material</span>
                         </li>
                     </Link>}
 
-                    {(user.isFaculty) && <Link to="" style={{ textDecoration: "none" }}>
+                    {(user.isFaculty) && <Link to="/marks/new" style={{ textDecoration: "none" }}>
                         <li>
                             <QueuePlayNextIcon className="icon" />
                             <span>Videos</span>
                         </li>
                     </Link>}
                     
-
-                    {(user.isFaculty) && <Link to="/updates/cr/new" style={{ textDecoration: "none" }}>
-                        <li>
-                            <NotificationAddIcon className="icon" />
-                            <span>Updates</span>
-                        </li>
-                    </Link>}
 
                     {/* Event can be created only when user is a part of technical team so it will only be visible to them */}
                     <Link to="/newEvent" style={{ textDecoration: "none" }}>

@@ -179,32 +179,6 @@ export const deleteFaculty = async (req, res, next) => {
     }
   }
 
-  export const facultyAttendance = async (req, res, next) => {
-    const { status, date } = req.body;
-  
-    try {
-      const faculty = await Faculty.findById(req.params.id);
-  
-      if (!faculty) {
-        return res.send({ message: "Faculty not found" });
-      }
-  
-      const existingAttendance = faculty.attendance.find(
-        (a) => a.date.toDateString() === new Date(date).toDateString()
-      );
-  
-      if (existingAttendance) {
-        existingAttendance.status = status;
-      } else {
-        faculty.attendance.push({ date, status });
-      }
-  
-      const result = await faculty.save();
-      return res.send(result);
-    } catch (error) {
-      next(error);
-    }
-  };
 
 
 

@@ -21,13 +21,10 @@ import testRoute from "./routes/test.js";
 import classRoute from "./routes/class.js";
 import countAllRoute from "./routes/countDocuments.js";
 import feedbackRoute from "./routes/feedback.js";
-<<<<<<< HEAD
+import clusterRoute from "./routes/cluster.js"
 
-=======
 // import resultRoute from "./routes/result.js";
 import videoRoute from "./routes/video.js";
-import materialRoutes from "./routes/material.js";
->>>>>>> bd8f511d1c89ad7606c5db7be698a7f709a5a89a
 
 //config and middlewares
 const app = express();
@@ -94,9 +91,9 @@ app.use("/api/tests", testRoute);
 app.use("/api/classes", classRoute);
 app.use("/api", countAllRoute);
 app.use("/api/feedback", feedbackRoute);
-// app.use("/api/result", resultRoute);
 app.use("/api/video", videoRoute);
-app.use("/api/material", materialRoutes);
+app.use("/api/clusters", clusterRoute);
+
 
 //listen on port
 
