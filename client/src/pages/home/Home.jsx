@@ -7,6 +7,7 @@ import FacultyButton from "../../components/facultyButtons/FacultyButton"
 import AdminWidgets from "../../components/adminWidgets/AdminWidgets";
 import AdminButton from "../../components/adminButtons/AdminButton"
 import Table from "../../components/table/Table";
+import Featured from "../../components/featured/Featured";
 
 // type specifies the admin side or user side 
 const Home = ({ type }) => {
@@ -55,8 +56,8 @@ const Home = ({ type }) => {
           height="400"
         /> */}
 
-        {/* total revenue and charts
-        <div className="charts">
+        {/* total revenue and charts */}
+        {/* <div className="charts">
           <Featured />
           <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
         </div> */}

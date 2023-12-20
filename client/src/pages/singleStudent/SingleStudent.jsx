@@ -5,6 +5,8 @@ import Navbar from "../../components/navbar/Navbar";
 import AdminNavbar from "../../components/adminNavbar/AdminNavbar";
 import useFetch from "../../hooks/useFetch";
 import Course from "../../components/course/Course";
+import { CircularProgressbar } from "react-circular-progressbar";
+
 
 const Single = ({ type }) => {
   
@@ -94,12 +96,15 @@ const Single = ({ type }) => {
             </div>
           </div>
           <div className="right">
-            <div className="title">Marks</div>
             <div className="attendance">
               <h2 className="title">Attendance</h2>
-              <div>{attendance.perc ? (<><span>Attendance: </span>{attendance?.perc}</>):("Attendance doesn't currently exist")}</div>
+              <CircularProgressbar value={attendance.perc} text={`${attendance.perc}%`} strokeWidth={10} className="progressbar" />
               <div><span>Classes Attended:</span> {attendance?.attended}</div>
               <div><span>Total Classes:</span> {attendance?.total}</div>
+            </div>
+            <div className="marks">
+            <div className="title">Marks</div>
+
             </div>
           </div>
         </div>

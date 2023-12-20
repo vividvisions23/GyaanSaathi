@@ -17,6 +17,9 @@ const QuerySchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Faculty'
     },
+    teacher: {
+        type: String
+    },
     response: {
         type: String
     }
