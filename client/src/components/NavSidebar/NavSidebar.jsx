@@ -165,7 +165,7 @@ const NavSidebar = ({ setOpen }) => {
                     <p className="title">User</p>
 
                     {/* View Profile */}
-                    <Link to={`/users/${user._id}`} style={{ textDecoration: "none" }}>
+                    <Link to={user.isFaculty? `/faculties/${user._id}` : `/students/${user._id}`} style={{ textDecoration: "none" }}>
                         <li>
                             <AccountCircleOutlinedIcon className="icon" />
                             <span>Profile</span>
@@ -173,7 +173,7 @@ const NavSidebar = ({ setOpen }) => {
                     </Link>
 
                     {/* Edit Profile */}
-                    <Link to={`/users/${user._id}/edit`} style={{ textDecoration: "none" }}>
+                    <Link to={user.isFaculty? `/faculties/${user._id}/edit` : `/students/${user._id}/edit`} style={{ textDecoration: "none" }}>
                         <li>
                             <EditIcon className="icon" />
                             <span>Edit Profile</span>

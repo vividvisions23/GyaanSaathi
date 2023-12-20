@@ -37,11 +37,11 @@ function StuVideo() {
 
       <div className="search">
         <div className="searchBar">
-          <h2>Search Videos by Subject Name</h2>
+          <h2>Search Videos</h2>
           <div className="searchInput">
             <input
               type="text"
-              placeholder="Search by Topic"
+              placeholder="Search"
               onChange={(e) => setquerys(e.target.value)}
               />
               <SearchIcon className="icon" />

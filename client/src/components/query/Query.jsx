@@ -1,15 +1,16 @@
 import './query.css'
 
 import CancelIcon from '@mui/icons-material/Cancel';
-import { useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import axios from "axios"
 import useFetch from '../../hooks/useFetch';
+import { AuthContext } from '../../context/AuthContext';
 
 const Query = ({ setOpen, user }) => {
 
     const [info, setInfo] = useState({});
     const [queryTo, setQueryTo] = useState();
-    const {data, loading} = useFetch("/faculties");
+    const {data} = useFetch(`/classes/${user.class}`)
 
     // set the usestate to the data user passed 
     const handleChange = (e) => {
@@ -28,11 +29,13 @@ const Query = ({ setOpen, user }) => {
                 withCredentials: false
             })
             setOpen(false)
+            console.log(newQuery)
         }
         catch (err) {
             console.log(err)
         }
     }
+
 
     return (
         <div className="modal">
@@ -65,11 +68,10 @@ const Query = ({ setOpen, user }) => {
                     <label>Choose Teacher</label>
                     <select id="queryTo" onChange={(e) => setQueryTo(e.target.value)}>
                         <option key={0} value="none">-</option>
-                        {loading ? 
-                            "loading" : 
-                            data && data.map((teacher) => (
+                        {
+                            data?.subjects?.map((sub, index) => (
                                
-                                <option key={teacher._id} value={teacher._id}>{teacher.name}</option>
+                                <option key={index} value={sub.teacher._id}>{sub.teacher.teachername}</option>
                             ))
                         }
                     </select>
