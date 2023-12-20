@@ -31,7 +31,7 @@ const NewVideo = ({ inputs, title }) => {
     e.preventDefault();
     try {
       const newVideo = {
-        ...info, faculty: user._id, sclass: sclass, subject: subject
+        ...info, faculty: user._id, standard: sclass, subject: subject
       }
       await axios.post("http://localhost:5500/api/video", newVideo, {
         withCredentials: false

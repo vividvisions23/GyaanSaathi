@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 
 const ClusterSchema = new mongoose.Schema (
     {
-        studentId: {
+        student_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Student'
         },
-        category: {
+        predicted_cluster: {
             type: Number
         }
     },

@@ -13,7 +13,7 @@ export const createCluster = async (req, res, next) => {
 
 export const getClusters = async (req, res, next) => {
     try {
-        const clusters = await Cluster.find();
+        const clusters = await Cluster.find().populate('student_id', 'name');
         res.status(200).json(clusters);
     } catch (err) {
         next(err)

@@ -93,6 +93,17 @@
             color: #555;
             text-align: center;
           }
+
+          .attendance {
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px;
+          }
+
+          span {
+            font-weight: bold;
+          }
     }
   }
   

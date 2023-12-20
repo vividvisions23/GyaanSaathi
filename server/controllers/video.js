@@ -28,7 +28,7 @@ export const fetchVideo = async (req, res, next) => {
 export const fetchVideosFaculty = async (req, res, next) => {
     const faculty_id = req.params.id; 
     try {
-        const faculty = await Faculty.findById(faculty_id); 
+        const faculty = await Faculty.findById(faculty_id).populate('standard', 'name').populate('subject', 'name'); 
         if (!faculty){
             return res.json({message: "No faculty exists"}); 
         }
@@ -48,7 +48,7 @@ export const fetchVideosClass = async (req, res, next) => {
         if (!class_name){
             return res.json({message: "Class doesn't exist"}); 
         }
-        const videos = await Video.find({standard: class_name._id}); 
+        const videos = await Video.find({standard: class_name._id}).populate('subject','name'); 
         res.json(videos); 
     } catch (error) {
         next(error); 
@@ -93,7 +93,7 @@ export const deleteVideo = async (req, res, next) => {
         if (!video){
             return res.status(404).json({message: "Video doesn't exist"}); 
         }
-        const deletedVideo = await Video.findByIdAndDelete(video_id); 
+        await Video.findByIdAndDelete(video_id); 
         res.status(200).json({message: "Video deleted successfully! "});
 
     } catch (error) {

@@ -4,7 +4,7 @@ import ImageModal from '../imageModal/ImageModal'
 import './course.scss'
 
 const Course = ({index, name, subjectCode, syllabusPicture, teacher}) => {
-  const colors = ['var(--light-blue)', 'var(--light-pink)', 'var(-light-yellow)', 'var(light-green)', 'var(light-red)']
+  const colors = ['var(--light-blue)', 'var(--light-pink)', 'var(--light-yellow)', 'var(--light-purple)', 'var(--light-red)']
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');

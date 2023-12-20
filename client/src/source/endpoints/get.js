@@ -13,6 +13,8 @@ export const getDatatableURL = (path, user) => {
 export const getModalURL = (path, id) => {
     if(path === 'facTasks' || path === 'stuTasks' || path === 'tasks')
         return `/tasks/${id}`
+    else if(path === 'facVideo')
+        return `/video/${id}`
     else
         return `/${path}`
 }

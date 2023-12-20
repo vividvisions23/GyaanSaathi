@@ -95,10 +95,12 @@ const Single = ({ type }) => {
           </div>
           <div className="right">
             <div className="title">Marks</div>
-            <h2 className="title">Attendance</h2>
-            <div>{attendance.perc ? (<>Attendance: {attendance?.perc}</>):("Attendance doesn't currently exist")}</div>
-            <div>Classes Attended: {attendance?.attended}</div>
-            <div>Total Classes: {attendance?.total}</div>
+            <div className="attendance">
+              <h2 className="title">Attendance</h2>
+              <div>{attendance.perc ? (<><span>Attendance: </span>{attendance?.perc}</>):("Attendance doesn't currently exist")}</div>
+              <div><span>Classes Attended:</span> {attendance?.attended}</div>
+              <div><span>Total Classes:</span> {attendance?.total}</div>
+            </div>
           </div>
         </div>
         <div className="bottom">

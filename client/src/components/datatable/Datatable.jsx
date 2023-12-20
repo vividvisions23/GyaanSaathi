@@ -14,6 +14,7 @@ import useFetch from "../../hooks/useFetch.js"
 // Modal for showing the details about tasks and updates
 import Modal from "../../components/modal/Modal";
 import { getDatatableURL } from "../../source/endpoints/get.js";
+import { getDeleteURL } from "../../source/endpoints/delete.js";
 
 
 
@@ -63,7 +64,7 @@ const Datatable = ({ column, name, type }) => {
     
     // this deletes data from the database
     try {
-      await axios.delete(`http://localhost:5500/api/${path}/${id}`, { withCredentials: false }
+      await axios.delete(getDeleteURL(path, id), { withCredentials: false }
       );
 
       // this filters the array by filtering out the deleted element based on the id

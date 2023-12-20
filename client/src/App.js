@@ -62,6 +62,7 @@ import AddClass from "./pages/class/AddClass";
 import ViewClass from "./pages/class/ViewClass";
 import { videoInputs } from "./source/formsource/videoInputs";
 import StuVideo from "./pages/video/ViewVideo";
+import StudentCategory from "./components/studentCategory/StudentCategory";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -145,6 +146,17 @@ function App() {
               <RequireAuth>
                 <RequireAdmin>
                   <Home type="Admin" />
+                </RequireAdmin>
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/admin/viewCategories"
+            element={
+              <RequireAuth>
+                <RequireAdmin>
+                  <StudentCategory />
                 </RequireAdmin>
               </RequireAuth>
             }
